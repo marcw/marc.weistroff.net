@@ -1,0 +1,7 @@
+---
+active_modules: [pygments, tags, blog, latex]
+author: Marc Weistroff
+canonical_url: http://marcw.net
+modules:
+  pygments:
+    style: tango

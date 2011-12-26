@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}{{ rst.title }}{% endblock %}
+{% block body %}
+    {%- if not config.hide_title %}
+        <h1>{{ rst.title }}</h1>
+    {%- endif %}
+
+    {{ rst.fragment }}
+
+{% endblock %}
+
+{% block sidebar %}
+
+<p>
+This post was written on {{ format_date(ctx.pub_date, format='full') }}
+{%- if ctx.tags %}
+and is tagged under 
+    {% for tag in ctx.tags|sort(case_sensitive=true) %}
+        {%- if not loop.first and not loop.last %}, {% endif -%}
+        {%- if loop.last and not loop.first %} and {% endif %}
+        <a href="{{ link_to('tag', tag=tag) }}">{{ tag }}</a>
+    {%- endfor -%}
+{%- endif -%}
+.
+</p>
+
+<p>Reactions are welcome by <a href="mailto:marc.weistroff@gmail.com">email</a> or <a href="https://twitter.com/futurecat">twitter</a>.</p>
+{% endblock %}
