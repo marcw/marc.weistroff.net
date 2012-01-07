@@ -1,13 +1,13 @@
-public: yes
+public: no
 
 Curriculum Vitae
 ================
 
 Marc Weistroff marc.weistroff@gmail.com - 06 27 38 85 63
 
-Self made, passionate, _dynamic_, experimented and pragmatic senior PHP 5
-developer. _Curious_ and fast learner, I want to work in a highly technical and
-fast-paced environment. My daily tools are Vim, Git, Symfony2, Doctrine2, Bash, MySQL,
+Self made, passionate, dynamic, experimented and pragmatic senior PHP 5
+developer. Curious and fast learner, I want to work in a technical and
+challenging environment. My daily tools are Vim, Git, Symfony2, Doctrine2, Bash, MySQL,
 PostgreSQL, RabbitMQ, PHPUnit, Jenkin, OSX and Linux.
 
 Professionel experiences

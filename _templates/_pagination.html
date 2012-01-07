@@ -1,13 +1,21 @@
 <div class=pagination>
-  {% if pagination.has_prev -%}
-    <a href="{{ link_to(pagination.url_key, page=pagination.page - 1) }}">&laquo; Previous</a>
-  {%- else -%}
-    <span class=disabled>&laquo; Previous</span>
-  {%- endif %}{#
-  #} — <strong>{{ pagination.page }}</strong> — {#
-  #}{% if pagination.has_next -%}
-    <a href="{{ link_to(pagination.url_key, page=pagination.page + 1) }}">Next &raquo;</a>
-  {%- else -%}
-    <span class=disabled>Next &raquo;</span>
-  {%- endif %}
+    <ul>
+        {% if pagination.has_prev -%}
+            <li class="prev"><a href="{{ link_to(pagination.url_key, page=pagination.page - 1) }}">&larr; Previous</a></li>
+        {%- else -%}
+            <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+        {%- endif %}
+        {% for page in range(1, pagination.pages + 1) %}
+            {% if pagination.page == page %}
+                <li class="active"><a href="#">{{ page }}</a></li>
+            {% else %}
+                <li><a href="{{ link_to(pagination.url_key, page=page ) }}">{{ page }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if pagination.has_next -%}
+            <li class="next"><a href="{{ link_to(pagination.url_key, page=pagination.page + 1) }}">Next &rarr;</a></li>
+        {%- else -%}
+            <li class="next disabled"><a href="#">Next &rarr;</a></li>
+        {%- endif %}
+    </ul>
 </div>

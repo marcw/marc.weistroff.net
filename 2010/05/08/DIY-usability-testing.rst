@@ -1,7 +1,7 @@
 public: yes
 tags: [UX, DIY]
 summary: |
-    Cheap tip for usability testing.
+    The one where I give the worst advice about usability testing.
 
 DYI Usability Testing
 =====================

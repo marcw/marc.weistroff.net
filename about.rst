@@ -5,22 +5,21 @@ Who's this guy ?
 
 My name is Marc Weistroff and I'm a web developper currently based in Paris, France.
 
-You can contact me via :
+If by any chance you wanted to contact me, you can use one of these media:
 
--   `Email <marc.weistroff@gmail.com>`_
+- `Email <marc.weistroff@gmail.com>`_
+- `Twitter <https://twitter.com/futurecat>`_
 
--   `Twitter <https://twitter.com/futurecat>`_
+I've got some online presences there:
 
-- https://twitter.com/futurecat
-- https://connect.sensiolabs.com/profile/futurecat
-- https://github.com/marcw
-- https://linkedin.com
+- `SensioLabs Connect <https://connect.sensiolabs.com/profile/futurecat>`_
+- `Github <https://github.com/marcw>`_
 
 About this Website
 ------------------
 
 The website itself is written in restructured text and built with a small
 script. Sourcecode can be `found on github
-<http://github.com/marcw/website>`_.
+<http://github.com/marcw/blog>`_.
 
-I'd like to thanks Armin Ronacher for his wonderfull tool to build static sites.
+I'd like to thanks `Armin Ronacher <http://lucumr.pocoo.org/>`_ for his wonderful tool to build static blogs.
