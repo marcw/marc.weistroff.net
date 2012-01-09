@@ -5,3 +5,5 @@ canonical_url: http://marcw.net
 modules:
   pygments:
     style: tango
+    lexers:
+      - PHP: [ startinline: on ]
