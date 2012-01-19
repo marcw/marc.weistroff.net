@@ -18,6 +18,8 @@ I've got some online presences there:
 About this Website
 ------------------
 
+This website is hosted on a EC2 micro instance and served by varnish & ngninx.
+
 The website itself is written in restructured text and built with a small
 script. Sourcecode can be `found on github
 <http://github.com/marcw/blog>`_.
