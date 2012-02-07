@@ -1,7 +1,10 @@
 ---
 active_modules: [pygments, tags, blog, latex]
 author: Marc Weistroff
-canonical_url: http://marcw.net
+canonical_url: http://marc.weistroff.net
+feed:
+    name: Another brain on earth
+    subtitle: Thus another RSS feed
 modules:
   pygments:
     style: tango

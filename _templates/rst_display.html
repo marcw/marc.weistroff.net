@@ -1,12 +1,8 @@
 {% extends "layout.html" %}
 {% block title %}{{ rst.title }}{% endblock %}
+{% block h1 %}{{ rst.title }}{% endblock %}
 {% block body %}
-    {%- if not config.hide_title %}
-        <h1>{{ rst.title }}</h1>
-    {%- endif %}
-
     {{ rst.fragment }}
-
 {% endblock %}
 
 {% block sidebar %}
@@ -24,7 +20,7 @@ and is tagged under
 .
 </p>
 
-<p>Reactions are welcome by <a href="mailto:marc.weistroff@gmail.com">email</a> or
+<p>Reactions are welcome by <a href="mailto:marc+blog-comment@weistroff.net">email</a> or
    <a href="https://twitter.com/intent/tweet?text=@futurecat+">twitter</a>.</p>
 
 <p>If you liked this article, you can share it via
