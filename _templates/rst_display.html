@@ -3,26 +3,23 @@
 {% block h1 %}{{ rst.title }}{% endblock %}
 {% block body %}
     {{ rst.fragment }}
-{% endblock %}
+    <p>
+    This post was written on {{ format_date(ctx.pub_date, format='full') }}
+    {%- if ctx.tags %}
+    and is tagged under 
+        {% for tag in ctx.tags|sort(case_sensitive=true) %}
+            {%- if not loop.first and not loop.last %}, {% endif -%}
+            {%- if loop.last and not loop.first %} and {% endif %}
+            <a href="{{ link_to('tag', tag=tag) }}">{{ tag }}</a>
+        {%- endfor -%}
+    {%- endif -%}
+    .
+    </p>
 
-{% block sidebar %}
+    <p>Reactions are welcome by <a href="mailto:marc+blog-comment@weistroff.net">email</a> or
+    <a href="https://twitter.com/intent/tweet?text=@futurecat+">twitter</a>.</p>
 
-<p>
-This post was written on {{ format_date(ctx.pub_date, format='full') }}
-{%- if ctx.tags %}
-and is tagged under 
-    {% for tag in ctx.tags|sort(case_sensitive=true) %}
-        {%- if not loop.first and not loop.last %}, {% endif -%}
-        {%- if loop.last and not loop.first %} and {% endif %}
-        <a href="{{ link_to('tag', tag=tag) }}">{{ tag }}</a>
-    {%- endfor -%}
-{%- endif -%}
-.
-</p>
-
-<p>Reactions are welcome by <a href="mailto:marc+blog-comment@weistroff.net">email</a> or
-   <a href="https://twitter.com/intent/tweet?text=@futurecat+">twitter</a>.</p>
-
-<p>If you liked this article, you can share it via
-    <a href='javascript:window.location.href="https://twitter.com/intent/tweet?text={{ rst.title }}&via=futurecat&url="+window.location.href'>Twitter</a>.
+    <p>If you liked this article, you can share it via
+        <a href='javascript:window.location.href="https://twitter.com/intent/tweet?text={{ rst.title }}&via=futurecat&url="+window.location.href'>Twitter</a>.
+    </p>
 {% endblock %}

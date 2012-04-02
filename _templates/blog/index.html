@@ -6,7 +6,7 @@
         <div class="row">
             <div class="span-10">
                 <div class=detail>
-                    <h1><a href="{{ link_to('page', slug=entry.slug) }}">{{ entry.title }}</a> <small>{{ format_date(entry.pub_date, format='medium') }}</small></h1>
+                    <h2><a href="{{ link_to('page', slug=entry.slug) }}">{{ entry.title }}</a> <small>{{ format_date(entry.pub_date, format='medium') }}</small></h2>
                     {% if entry.summary %}
                         <div class=summary>{{ entry.render_summary() }}</div>
                     {% endif %}

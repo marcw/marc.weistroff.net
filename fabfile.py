@@ -24,9 +24,10 @@ def upload_s3():
     key.set_acl('public-read')
 
 def min_css():
-    local('cat static/bootstrap.min.css static/custom.css static/pygments.css| yuicompressor --type=css -o static/all.css')
+    local('lessc static/all.less | yuicompressor --type=css -o static/all.css')
 
 def clean():
+    local('rm static/all.css')
     local('rm -rf _build/*')
 
 def serve():
