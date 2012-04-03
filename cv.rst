@@ -46,7 +46,7 @@ keywords: ``php`` ``symfony-2.0`` ``nginx`` ``apache2`` ``postgres`` ``mysql`` `
 
 **Developer - SensioLabs**, *from november 2009 to may 2011, Paris, France*
 
-I first started to be a developer for projects such as SensioLabs Trainings,
+I first started as a developer for projects such as SensioLabs Trainings,
 the intranet for Les Editions Eyrolles, L'Express and Ma Residence.
 
 After that, I have been the lead developer on a set of projects for L'Express.
