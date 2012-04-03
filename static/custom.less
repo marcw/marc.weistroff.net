@@ -1,3 +1,8 @@
+.navbar-inner {
+    -moz-border-radius:none;
+    -webkit-border-radius:none;
+    border-radius:none;
+}
 
 h1 {
     margin-bottom: 16px;
@@ -20,4 +25,32 @@ footer {
     p {
         text-align: center;
     }
+}
+
+div.content-body {
+    div.section {
+        margin-top: 32px;
+    }
+    h2 {
+        margin-bottom: 16px;
+    }
+}
+
+.resume-headline {
+    margin-top: 24px;
+    font-size: 18px;
+
+    &:nth-child(n+1) {
+        margin-top: 32px;
+    }
+}
+
+.resume-introduction {
+    font-style: italic;
+}
+
+tt {
+    background-color: lighten(@yellow, 25%);
+    padding: 0px 3px;
+    font-family: @baseFontFamily;
 }

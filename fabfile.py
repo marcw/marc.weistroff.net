@@ -42,5 +42,6 @@ def build():
 
 def deploy():
     build()
+    min_css()
     upload_s3()
     local('rsync -a _build/ sheep01:/var/www/marc.weistroff.net')
