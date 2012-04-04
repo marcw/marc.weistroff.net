@@ -20,11 +20,15 @@ Professional experiences
 
 **R&D developer - SensioLabs**, *05/2011 - Present, Paris, France*
 
+`SensioLabs`_ is an open source specialist and creator of the PHP framework
+`Symfony`_. SensioLabs offers a wide range of services around Symfony 1 & 2.
+(80+ employees, 11M€ revenue)
+
 I am in charge of developing and maintaining `SensioLabs Connect`_ and other
 products which are in the process of being launched.
 
 I'm under the direct responsability and in close collaboration with Fabien
-Potencier, CEO of SensioLabs and creator of the Symfony framework and
+Potencier, CEO of SensioLabs and lead developer of the Symfony framework and
 components.
 
 My daily work routine is discussing new features with him, designing,
@@ -73,10 +77,12 @@ Projects:
   and receives a lot of hits per day. This application was written using
   symfony1.
 
-- `La plateforme du batiment`_
+- `La plateforme du bâtiment`_
 
-  I worked on the search engine of the website using Solr. It searches products
-  in different stores and features faceting and autocomplete.
+  "La plateforme du bâtiment" (The construction's platform) is an e-commerce
+  shop for construction workers. I worked on the website's search engine
+  using Solr. It searches products available in different stores and features
+  faceting and autocomplete.
 
 keywords: ``php`` ``symfony`` ``symfony-2.0`` ``apache2`` ``mysql`` ``svn`` ``solr`` ``git``
 
@@ -84,8 +90,10 @@ keywords: ``php`` ``symfony`` ``symfony-2.0`` ``apache2`` ``mysql`` ``svn`` ``so
 
 **Developer - Une vie moins chere**, *from july 2009 to november 2009, Paris, France*
 
-I was in charge of designing and implementing a price comparison service and a
-CMS.
+"Une vie moins chere" was a website that gave you tips for saving on your daily
+expenses. I was in charge of starting the design and the implementation of a
+price comparison service and a CMS before the lead developer comes in the
+company.
 
 keywords: ``php`` ``symfony`` ``doctrine`` ``xml`` ``mysql``
 
@@ -94,7 +102,9 @@ keywords: ``php`` ``symfony`` ``doctrine`` ``xml`` ``mysql``
 **Freelance developer**, *from 2001 to 2009, Lyon, France*
 
 I have been hired by various small sized companies and NPO to create or improve
-their online presence.
+their online presence. Created websites ranged from one-page websites to a full
+community-centered application which featured a blog, a forum and a event
+calendar.
 
 keywords: ``webdesign`` ``development`` ``social-media`` ``seo`` ``joomla`` ``symfony``
 
@@ -152,12 +162,12 @@ Lycée du val de saone - Trévoux, France.
 Benevolent activities
 ---------------------
 
-I had been strongly involved in the local electronic music scene from 2004 to
-2008. I was member of the executive committee of several NPOs. I organized
-events in venues able to host from 50 to 1000 persons. Therefore I was
-fully involved in the management of events organization and learned
-from planning the event, communicate on it, managing volunteer teams,
-concretising the event.
+I had been strongly involved in the Lyons' local electronic music scene from
+2004 to 2008. I was member of the executive committee of several NPOs. I
+organized events in venues able to host from 50 to 1000 persons. Therefore I
+was fully involved in the management of events organization and learned from
+planning the event, communicate on it, managing volunteer teams, concretising
+the event.
 
 Interests
 ---------
@@ -172,7 +182,7 @@ Don't hesitate to drop me a line via `email <mailto:marc@weistroff.net>`_ or `tw
 .. _`Alexandre Salomé`: http://alexandresalome.fr
 .. _`L\'Express Culture`: http://fiches.lexpress.fr
 .. _`L\'Express Communauté`: http://communaute.lexpress.fr
-.. _`La plateforme du batiment`: http://www.laplateforme.com
+.. _`La plateforme du bâtiment`: http://www.laplateforme.com
 .. _`nice performances using symfony2 cache wrapping symfony 1 application`: http://www.slideshare.net/futurecat/nice-performance-using-sf2-cache-wrapping-sf1-application-paris
 .. _`inspire yourself by symfony2 to create better code`: http://speakerdeck.com/u/futurecat/p/inspire-yourself-of-symfony2-to-create-better-code
 .. _`mock, stubs et tests`: http://speakerdeck.com/u/alexandresalome/p/mocks-stubs-tests
