@@ -8,13 +8,13 @@ Paris, France. Relocating to Toronto, Canada on september 2012.
 
 .. class:: resume-introduction
 
-Self made, passionate, dynamic, experimented and pragmatic PHP5 developer.
-Curious and fast learner, I want to work in a highly technical and challenging
+Self-taught, passionate, dynamic, experienced and pragmatic PHP5 developer.
+Curious and a fast learner, I want to work in a highly technical and challenging
 environment. My daily tools are Vim, Git, Symfony2, Doctrine2, Bash,
 PostgreSQL, RabbitMQ, PHPUnit, Jenkin, OSX and Linux.
 
-Professional experiences
-------------------------
+Professional experience
+-----------------------
 
 .. class:: resume-headline
 
@@ -27,7 +27,7 @@ Professional experiences
 I am in charge of developing and maintaining `SensioLabs Connect`_ and other
 products which are in the process of being launched.
 
-I'm under the direct responsability and in close collaboration with Fabien
+I'm under the direct responsibility and in close collaboration with Fabien
 Potencier, CEO of SensioLabs and lead developer of the Symfony framework and
 components.
 
@@ -42,20 +42,24 @@ Disclosed project:
   all SensioLabs products. It features an OAuth2 provider and an hypermedia
   API.
 
-I am also an occasional Symfony trainer and I regularly provide technical advice to the development team.
+- I also maintain parts of the Symfony official website and some other
+  related websites within the SensioLabs galaxy.
+
+I am also an occasional Symfony trainer and I regularly provide technical
+advice to the development team.
 
 keywords: ``php`` ``symfony-2.0`` ``nginx`` ``apache2`` ``postgres`` ``mysql`` ``rabbitmq`` ``fabric`` ``bash`` ``git`` ``github`` ``varnish`` ``assetic``
 
 .. class:: resume-headline
 
-**Developer - SensioLabs**, *from november 2009 to may 2011, Paris, France*
+**Developer - SensioLabs**, *from November 2009 to May 2011, Paris, France*
 
 I first started as a developer for projects such as SensioLabs Trainings,
 the intranet for Les Editions Eyrolles, L'Express and Ma Residence.
 
-After that, I have been the lead developer on a set of projects for L'Express.
-I have also been in charge of the set-up and maintenance of internal tools. I
-have made the switch from SensioLabs in-house continuous integration system to
+After that, I was the lead developer on a set of projects for L'Express.
+I was also in charge of the set-up and maintenance of internal tools. I
+made the switch from SensioLabs in-house continuous integration system to
 Jenkins, in which it was possible to run Selenium test suites in a Firefox
 browser running in a headless X11 server, and see the progress, thanks to VNC.
 
@@ -64,7 +68,7 @@ Projects:
 - `L'Express Culture`_
 
   L'Express is one of the 3 most visited French news websites.  This
-  application is a cultural encyclopedia where all contents are written by
+  application is a cultural encyclopedia where all content is written by
   their journalists.  This project was built using some Symfony2 components and
   symfony1 and boasts a multi-tier architecture. It extensively uses ESI and
   HttpCache.
@@ -73,13 +77,13 @@ Projects:
 
   This application is a social network for both journalists and readers of
   L'Express news site. The social network features "follow" and "activity feed"
-  functionalities. The topbar is displayed on all pages of l'express.fr website
+  functions. The topbar is displayed on all pages of l'express.fr website
   and receives a lot of hits per day. This application was written using
   symfony1.
 
 - `La plateforme du bâtiment`_
 
-  "La plateforme du bâtiment" (The construction's platform) is an e-commerce
+  "La plateforme du bâtiment" (The construction platform) is an e-commerce
   shop for construction workers. I worked on the website's search engine
   using Solr. It searches products available in different stores and features
   faceting and autocomplete.
@@ -88,11 +92,11 @@ keywords: ``php`` ``symfony`` ``symfony-2.0`` ``apache2`` ``mysql`` ``svn`` ``so
 
 .. class:: resume-headline
 
-**Developer - Une vie moins chere**, *from july 2009 to november 2009, Paris, France*
+**Developer - Une vie moins chere**, *from July 2009 to November 2009, Paris, France*
 
 "Une vie moins chere" was a website that gave you tips for saving on your daily
 expenses. I was in charge of starting the design and the implementation of a
-price comparison service and a CMS before the lead developer comes in the
+price comparison service and a CMS before the lead developer joined the
 company.
 
 keywords: ``php`` ``symfony`` ``doctrine`` ``xml`` ``mysql``
@@ -101,9 +105,9 @@ keywords: ``php`` ``symfony`` ``doctrine`` ``xml`` ``mysql``
 
 **Freelance developer**, *from 2001 to 2009, Lyon, France*
 
-I have been hired by various small sized companies and NPO to create or improve
-their online presence. Created websites ranged from one-page websites to a full
-community-centered application which featured a blog, a forum and a event
+I was hired by various small-sized companies and NPOs to create or improve
+their online presence. Websites created ranged from one-page websites to a full
+community-centered application which featured a blog, a forum and an event
 calendar.
 
 keywords: ``webdesign`` ``development`` ``social-media`` ``seo`` ``joomla`` ``symfony``
@@ -113,7 +117,7 @@ keywords: ``webdesign`` ``development`` ``social-media`` ``seo`` ``joomla`` ``sy
 **Bartender - Café 203**, *from 2004 to 2008, Lyon, France*
 
 I started as a part-time bartender during my studies and worked more and more
-closely with the manager of the Catering activity in order to help on event
+closely with the manager of the Catering activity in order to help with event
 organization and progress.
 
 Conferences
@@ -159,20 +163,19 @@ Université Claude Bernard - Lyon, France
 
 Lycée du val de saone - Trévoux, France.
 
-Benevolent activities
----------------------
+Extra-professional activities
+-----------------------------
 
-I had been strongly involved in the Lyons' local electronic music scene from
-2004 to 2008. I was member of the executive committee of several NPOs. I
-organized events in venues able to host from 50 to 1000 persons. Therefore I
-was fully involved in the management of events organization and learned from
-planning the event, communicate on it, managing volunteer teams, concretising
-the event.
+I was keenly involved in Lyon's local electronic music scene from 2004 to 2008.
+I was member of the executive committee of several NPOs. I organized events in
+venues able to host from 50 to 1000 people. Therefore I was fully involved in
+the management of events organization and learned from planning the event,
+communicating on it, managing volunteer teams, bringing the event to life.
 
 Interests
 ---------
 
-Travels, Cooking, Music, Reading.
+Travelling, Cooking, Music, Reading.
 
 Don't hesitate to drop me a line via `email <mailto:marc@weistroff.net>`_ or `twitter <https://twitter/com/futurecat>`_.
 
