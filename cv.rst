@@ -1,4 +1,4 @@
-public: n
+public: y
 reactions: n
 
 Marc Weistroff, PHP5 & Symfony Developer
@@ -177,7 +177,15 @@ Interests
 
 Travelling, Cooking, Music, Reading.
 
-Don't hesitate to drop me a line via `email <mailto:marc@weistroff.net>`_ or `twitter <https://twitter/com/futurecat>`_.
+You can also find some more bits of information about me here:
+
+- `Github <https://github.com/marcw>`_ for the open source projects I contribute to.
+- `My SensioLabs Connect profile <https://connect.sensiolabs.com/profile/futurecat>`_ to see my achievements in the Symfony community.
+
+
+
+
+Don't hesitate to drop me a line via `email <mailto:marc@weistroff.net>`_ or `twitter <https://twitter.com/futurecat>`_.
 
 .. _`Symfony`: http://symfony.com
 .. _`SensioLabs`: http://sensiolabs.com
