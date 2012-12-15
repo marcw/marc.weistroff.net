@@ -4,7 +4,7 @@ reactions: n
 Marc Weistroff, PHP5 & Symfony Developer
 ========================================
 
-Paris, France. Relocating to Toronto, Canada on september 2012.
+Montreal, QC, Canada.
 
 .. class:: resume-introduction
 
