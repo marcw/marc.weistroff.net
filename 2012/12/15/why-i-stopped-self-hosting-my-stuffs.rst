@@ -9,14 +9,14 @@ Why I Stopped self-hosting my mails, IM and website
 A year ago, I started an experiment. I wanted to quit gmail and gtalk
 services and prove to me that I could host my emails and my IM
 myself. It went quite well but I decided to stop and
-subscribed to [fastmail.fm](http://fastmail.fm) and to
-[hosted.im](http://hosted.im).
+subscribed to `fastmail.fm <http://fastmail.fm>`_ and to
+`hosted.im <http://hosted.im>`_.
 
 Installation
 ------------
 
 I spent a couple of days installing a fully functionnal mail/web/jabber server.
-Hopefully, I had some [good tutorials](http://flurdy.com/docs/postfix/) about
+Hopefully, I had some `good tutorials <http://flurdy.com/docs/postfix/>`_ about
 setting up a mail server. On the jabber side, it was quite easy even if
 sometime, my WTF-o-meter level was really high. I blame my totally absent
 knowledge of erlang and mnesia for that.
@@ -41,16 +41,21 @@ Here is what I learned:
 
 - SMTP servers obey Murphy's Law. If you have an important mail to send, it
   will fail. Fallbacking to gmail happened to many time.
+
 - ejabberd is stable. In a year of operation, it failed once and
-  restarting it made did the trick. The [guys behind
-  ejabberd](http://www.process-one.net/en/) did a really great job.
+  restarting it made did the trick. The `guys behind ejabberd <http://www.process-one.net/en/>`_ did a really great job.
+
 - Spam was virtually absent from my mail. Spamassasin and postgrey worked well.
-- [Sieve](http://en.wikipedia.org/wiki/Sieve_%28mail_filtering_language%29) is
+
+- `Sieve <http://en.wikipedia.org/wiki/Sieve_%28mail_filtering_language%29>`_ is
   great. I mean really really GREAT. Filtering mail in gmail is a pain.
   Filtering mail in Sieve is a real pleasure and I will reject any mail
   provider which doesn't support Sieve. Plus, Sieve configurations are exportable.
+
 - Mail clients all suck. Sparrow was an exception. I'm sad that they stopped.
-- I'm not nerdy enough to use [Mutt](http://www.mutt.org/).
+
+- I'm not nerdy enough to use `Mutt <http://www.mutt.org/>`_.
+
 - I should have used a configuration management system like Chef, Puppet or
   CFEngine to create the server. It would have doubled/tripled the time
   required to configure it properly, but it would have been an asset if I
