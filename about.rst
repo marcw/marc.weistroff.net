@@ -18,7 +18,7 @@ I've got some online presences there:
 About this Website
 ------------------
 
-This website is hosted on a EC2 micro instance and served by varnish & ngninx.
+This website is hosted on Amazon S3.
 
 The website itself is written in restructured text and built with a small
 script. Sourcecode can be `found on github
