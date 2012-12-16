@@ -1,5 +1,5 @@
 public: yes
-tags: [Privacy, self-hosting]
+tags: [self-hosting]
 summary: |
     The one where I share my experience about self-hosting and why I stopped.
 
@@ -72,7 +72,7 @@ The only cron job that I had is now run on heroku.
 My jabber service is being migrated to hosted.im.
 
 This will costs me around 50$ a year and this is definitely worth the time I
-won't put in managing my old instance.
+won't put in managing a server.
 
 Creating, installing and configuring software is easy. Achieving reliability is
 hard.
