@@ -15,15 +15,15 @@ subscribed to `fastmail.fm <http://fastmail.fm>`_ and to
 Installation
 ------------
 
-I spent a couple of days installing a fully functionnal mail/web/jabber server.
-Hopefully, I had some `good tutorials <http://flurdy.com/docs/postfix/>`_ about
-setting up a mail server. On the jabber side, it was quite easy even if
-sometime, my WTF-o-meter level was really high. I blame my totally absent
-knowledge of erlang and mnesia for that.
+A year ago, I spent some days installing a fully functionnal mail/web/jabber
+server.  Hopefully, I had some `good tutorials
+<http://flurdy.com/docs/postfix/>`_ about setting up a mail server. On the
+jabber side, it was quite easy even if sometime, my WTF-o-meter level was
+really high. I blame my totally absent knowledge of erlang and mnesia here.
 
-The easiest part was to set-up the varnish, nginx part of the
-server. This is because I use these technologies every day, but I think that
-serving static files with a reverse proxy could be much more easier.
+The easiest part was to set-up the varnish, nginx part of the server. This is
+because I use these technologies every day. I still think that serving static
+files with a reverse proxy could be much more easier and quicker to setup.
 
 Backuping is easy and cheap, thanks to Amazon S3. I did not suffer any crash
 and did not have to restore my data. I think I would have cried if I had to do
@@ -49,10 +49,8 @@ Here is what I learned:
 
 - `Sieve <http://en.wikipedia.org/wiki/Sieve_%28mail_filtering_language%29>`_ is
   great. I mean really really GREAT. Filtering mail in gmail is a pain.
-  Filtering mail in Sieve is a real pleasure and I will reject any mail
-  provider which doesn't support Sieve. Plus, Sieve configurations are exportable.
 
-- Mail clients all suck. Sparrow was an exception. I'm sad that they stopped.
+- Mail clients all suck. Sparrow was an exception.
 
 - I'm not nerdy enough to use `Mutt <http://www.mutt.org/>`_.
 
