@@ -3,7 +3,7 @@ public: yes
 Who's this guy ?
 ================
 
-My name is Marc Weistroff and I'm a web developper currently based in Montreal, QC, Canada.
+My name is Marc Weistroff and I'm a web developer currently based in Montreal, QC, Canada.
 
 If by any chance you wanted to contact me, you can use one of these media:
 
