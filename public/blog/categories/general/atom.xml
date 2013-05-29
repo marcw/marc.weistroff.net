@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: general | Another brain on earth]]></title>
+  <link href="http://marc.weistroff.net/blog/categories/general/atom.xml" rel="self"/>
+  <link href="http://marc.weistroff.net/"/>
+  <updated>2013-05-29T13:26:33+02:00</updated>
+  <id>http://marc.weistroff.net/</id>
+  <author>
+    <name><![CDATA[Marc Weistroff]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[I assure you, it's open]]></title>
+    <link href="http://marc.weistroff.net/2011/10/03/i-assure-you-it-s-open/"/>
+    <updated>2011-10-03T00:00:00+02:00</updated>
+    <id>http://marc.weistroff.net/2011/10/03/i-assure-you-it-s-open</id>
+    <content type="html"><![CDATA[<p><img src="/images/clerks.jpg" alt="I assure you, we're open" /></p>
+
+<p>Kids. Backuping your data is great. But assure you that your backups
+also contain your database. I&rsquo;ve lost all the posts of this blogs and
+much more. Nothing to say that I was really pissed off.</p>
+
+<p>I wanted to recreate this blog from scratch but got distract by other
+things. After a few months of procrastinating and slapping myself for
+not having a place to write, I found a great theme based on twitter
+bootstrap for wordpress and decided to give it a go. I&rsquo;m pretty happy
+with that.</p>
+
+<p>Let&rsquo;s hope I&rsquo;ll have the strength to write some interesting articles.</p>
+
+<p>Oh, I&rsquo;m currently concerned by twitter/facebook tracking on the web and
+won&rsquo;t add &ldquo;tweet this&rdquo; or &ldquo;like&rdquo; button but I will, for now, conserve
+the Google analytics tracking script and the feedburner thingy.</p>
+
+<p>P.S : The picture and the post&rsquo;s title come from the awesome
+<a href="http://www.imdb.com/title/tt0109445/">Clerks</a> and <a href="http://www.imdb.com/title/tt0424345/">Clerks
+2</a> movies. If you haven&rsquo;t seen
+them, it&rsquo;s never too late.</p>
+]]></content>
+  </entry>
+  
+</feed>

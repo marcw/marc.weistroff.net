@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Another brain on earth]]></title>
+  <link href="http://marc.weistroff.net/atom.xml" rel="self"/>
+  <link href="http://marc.weistroff.net/"/>
+  <updated>2013-05-29T13:26:33+02:00</updated>
+  <id>http://marc.weistroff.net/</id>
+  <author>
+    <name><![CDATA[Marc Weistroff]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Why I Stopped self-hosting my mails, IM and website]]></title>
+    <link href="http://marc.weistroff.net/2012/12/15/why-i-stopped-self-hosting-my-stuffs/"/>
+    <updated>2012-12-15T00:00:00+01:00</updated>
+    <id>http://marc.weistroff.net/2012/12/15/why-i-stopped-self-hosting-my-stuffs</id>
+    <content type="html"><![CDATA[<p>A year ago, I started an experiment. I wanted to quit gmail and gtalk
+services and prove to me that I could host my emails and my IM myself.
+It went quite well but I decided to stop and subscribed to
+<a href="http://fastmail.fm">fastmail.fm</a> and to <a href="http://hosted.im">hosted.im</a>.</p>
+
+<h2>Installation</h2>
+
+<p>A year ago, I spent some days installing a fully functionnal
+mail/web/jabber server. Hopefully, I had some <a href="http://flurdy.com/docs/postfix/">good
+tutorials</a> about setting up a mail
+server. On the jabber side, it was quite easy even if sometime, my
+WTF-o-meter level was really high. I blame my totally absent knowledge
+of erlang and mnesia here.</p>
+
+<p>The easiest part was to set-up the varnish, nginx part of the server.
+This is because I use these technologies every day. I still think that
+serving static files with a reverse proxy could be much more easier and
+quicker to setup.</p>
+
+<p>Backuping is easy and cheap, thanks to Amazon S3. I did not suffer any
+crash and did not have to restore my data. I think I would have cried if
+I had to do that because of the time needed to set-up the server again.
+The pain would have been bearable thanks to the EBS (if it doesn&rsquo;t
+fail).</p>
+
+<p>My final set-up used these technologies: Amazon EC2, Amazon S3, Amazon
+CloudFront, Amazon Elastic Block Storage, Postfix, Dovecot, Sieve,
+Varnish, Postgrey, Spamassassin, Nginx and Ejabberd.</p>
+
+<h2>Running it</h2>
+
+<p>Here is what I learned:</p>
+
+<ul>
+<li><p>SMTP servers obey Murphy&rsquo;s Law. If you have an important mail to
+send, it will fail. Fallbacking to gmail happened too many time.</p></li>
+<li><p>ejabberd is stable. In a year of operation, it failed once and
+restarting it made did the trick. The <a href="http://www.process-one.net/en/">guys behind
+ejabberd</a> did a really great job.</p></li>
+<li><p>Spam was virtually absent from my mail. Spamassasin and postgrey
+worked well.</p></li>
+<li><p><a href="http://en.wikipedia.org/wiki/Sieve_%28mail_filtering_language%29">Sieve</a>
+is great. I mean really really GREAT. Filtering mail in gmail is a
+pain.</p></li>
+<li><p>Mail clients all suck. Sparrow was an exception.</p></li>
+<li><p>I&rsquo;m not nerdy enough to use <a href="http://www.mutt.org/">Mutt</a>.</p></li>
+<li><p>I should have used a configuration management system like Chef,
+Puppet or CFEngine to create the server. It would have
+doubled/tripled the time required to configure it properly, but it
+would have been an asset if I wanted to migrate my services to
+another host, which I considered at some point.</p></li>
+</ul>
+
+
+<h2>Now</h2>
+
+<p>Yesterday, and after too many problem with my SMTP server, I decided to
+end this experiment and started looking for a reliable mail provider. I
+chose fastmail.fm because of the price, migrations processes and the
+Sieve support.</p>
+
+<p>This website is now hosted by Amazon S3. The only cron job that I had is
+now run on heroku. My jabber service is being migrated to hosted.im.</p>
+
+<p>This will costs me around 50\$ a year and this is definitely worth the
+time I won&rsquo;t put in managing a server.</p>
+
+<p>Creating, installing and configuring software is easy. Achieving
+reliability is hard.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Authenticated Cross-Domains AJAX Requests with CORS]]></title>
+    <link href="http://marc.weistroff.net/2012/11/23/Cross-Domain-AJAX-withCredentials/"/>
+    <updated>2012-11-23T00:00:00+01:00</updated>
+    <id>http://marc.weistroff.net/2012/11/23/Cross-Domain-AJAX-withCredentials</id>
+    <content type="html"><![CDATA[<p>Yesterday, I lost a significant amount of time dealing with cross-domain
+AJAX requests and I thought I might share a bit of what I learned.</p>
+
+<ol>
+<li><p>jQuery 1.5.0 is BROKEN when it comes to cross-domain AJAX requests.
+Upgrade to at least jQuery 1.5.1.</p></li>
+<li><p><code>Access-Control-Allow-Origin</code> WON&rsquo;T accept a wildcard value if your
+XHR&rsquo;s <code>withCredentials</code> option is set to <code>true</code>. Also, it won&rsquo;t
+accept a list of origin. If you want to accept requests from a lot
+of domains, you can match the <code>Origin</code> request header against a set
+of domains and set the <code>Access-Control-Allow-Origin</code> accordingly.</p></li>
+<li><p><code>Access-Control-Allow-Headers</code> and <code>Access-Control-Allow-Methods</code>
+CORS header does not support * as a value. You have to be specific,
+even during your prototyping phase.</p></li>
+</ol>
+
+
+<p>Hope it helps.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Serving a maintenance page with varnish]]></title>
+    <link href="http://marc.weistroff.net/2012/01/19/a-maintenance-page-served-by-varnish/"/>
+    <updated>2012-01-19T00:00:00+01:00</updated>
+    <id>http://marc.weistroff.net/2012/01/19/a-maintenance-page-served-by-varnish</id>
+    <content type="html"><![CDATA[<p>Yesterday during the SOPA Blackout, this website was on strike. The
+billions of readers of this blog had a static page explaining why this
+website was offline instead of the normal content. As a good nerd, I
+turned this operation into a technological one and instead of serving a
+static html with nginx, I decided to use
+<a href="https://www.varnish-cache.org/">varnish</a>. Yes, varnish. I never wrote
+anything about the absolutely amazing architecture of this blog but
+basically, static files are generated from
+<a href="http://docutils.sourceforge.net/rst.html">RestructuredText</a>, served by
+<a href="http://nginx.org/">nginx</a> and cached by varnish. Let&rsquo;s get back to the
+point. I wanted varnish to serve a static page with a 503 status code
+(for SEO purpose). It took a bit of VCL knowledge and here is how to do
+it:</p>
+
+<figure class='code'><figcaption><span>/etc/varnish/maintenance.vcl</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>backend default {
+</span><span class='line'>    .host = &quot;127.0.0.1&quot;;
+</span><span class='line'>    .port = &quot;8080&quot;;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>sub vcl_recv {
+</span><span class='line'>    error 503;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>sub vcl_error {
+</span><span class='line'>    set obj.http.Content-Type = &quot;text/html; charset=utf-8&quot;;
+</span><span class='line'>    # you can put absolutely what you want
+</span><span class='line'>    synthetic {&quot;
+</span><span class='line'>        &lt;html&gt;
+</span><span class='line'>            &lt;head&gt;
+</span><span class='line'>            &lt;title&gt;My maintenance page&lt;/title&gt;
+</span><span class='line'>            &lt;/head&gt;
+</span><span class='line'>            &lt;body&gt;
+</span><span class='line'>            &lt;h1&gt;This website is under maintenance.&lt;/h1&gt;
+</span><span class='line'>            &lt;/body&gt;
+</span><span class='line'>            &lt;/html&gt;
+</span><span class='line'>            &quot;};
+</span><span class='line'>    return (deliver);
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The trick here is the <code>synthetic</code> keyword which is described in the
+varnish documentation like this:</p>
+
+<blockquote><p>The synthetic keyword is used to produce a synthetic response body in
+<code>vcl_error</code>. It takes a single string as argument.</p></blockquote>
+
+<p>Now that you have a cool VCL for your maintenance page, you can load
+this vcl in varnish like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret <span class="s2">&quot;vcl.load maintenance /etc/varnish/maintenance.vcl&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and to replace the original rules by those described in maintenance.vcl</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>varnishadm -T 127.0.0.1:6082 -S /etc/varnish/secret <span class="s2">&quot;vcl.use maintenance&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And varnish will serve the maintenance page. Like a boss.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Solving segfault issues when using PHP5 and PostgreSQL]]></title>
+    <link href="http://marc.weistroff.net/2012/01/11/php5-postgresql-extension-causing-segfault/"/>
+    <updated>2012-01-11T00:00:00+01:00</updated>
+    <id>http://marc.weistroff.net/2012/01/11/php5-postgresql-extension-causing-segfault</id>
+    <content type="html"><![CDATA[<p>If your PHP5 installation always segfault when using PostgreSQL, you
+might have to change the loading order of your extensions. To be
+specific, you&rsquo;ll surely need to load the postgresql extension before the
+curl one.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Feature flags with Symfony2]]></title>
+    <link href="http://marc.weistroff.net/2012/01/09/simple-feature-flags-symfony2/"/>
+    <updated>2012-01-09T00:00:00+01:00</updated>
+    <id>http://marc.weistroff.net/2012/01/09/simple-feature-flags-symfony2</id>
+    <content type="html"><![CDATA[<p>Feature flags is a really common design in modern web applications and
+is heavily used by startups. It permits you to enable/disable features
+for some users or groups of users. It&rsquo;s really handy if you want to
+deploy to production a feature for testing purpose in order to have data
+on how your infrastructure reacts in a live environment.</p>
+
+<p>Let&rsquo;s have some fun and try to implements a simple feature flags design
+in your Symfony2 project without writing too much lines of PHP. Sure, we
+will use the as complex as powerful Security component for that. I won&rsquo;t
+dig deep inside the it, so you&rsquo;ll better be well versed about <a href="http://symfony.com/doc/current/book/security.html#roles">roles and
+roles hierarchy</a>.</p>
+
+<p>What we want for this project three types of features groups: &lsquo;alpha&rsquo;,
+&lsquo;beta&rsquo; and &lsquo;prod&rsquo;. I want the admin of my website to have access to the
+alpha unstable features, the beta testing group to the beta features and
+all the oser users to all the rest of my application.</p>
+
+<p>We can express this by using role hierarchy:</p>
+
+<figure class='code'><figcaption><span>app/config/security.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">security</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">role_hierarchy</span><span class="p-Indicator">:</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">ROLE_ADMIN</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ROLE_USER</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">ROLE_SUPER_ADMIN</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ROLE_USER,ROLE_ADMIN,ROLE_ALLOWED_TO_SWITCH</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="l-Scalar-Plain">FEATURE_ALPHA</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">FEATURE_BETA, FEATURE_SUPER_SECRET</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">FEATURE_BETA</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">FEATURE_PROD, FEATURE_FOOBAR</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">FEATURE_PROD</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">FEATURE_FOO, FEATURE_BAR</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thus, anyone whom is granted <code>FEATURE_ALPHA</code> role will have access to all
+the features and the other groups won&rsquo;t have access to the &ldquo;lower&rdquo;
+features.</p>
+
+<p>This is a rad way of defining who have access to what, but currently,
+it&rsquo;s not supported by the SecurityBundle because only roles prefixed by
+<code>ROLE_</code> are supported by the current voter.</p>
+
+<p>So, we need to define a new voter that supports the newly created
+<code>FEATURE_*</code> roles. Is it complicated ? Hell no. Add this to your bundle
+xml configuration:</p>
+
+<figure class='code'><figcaption><span>Acme/Bundle/AwesomeBundle/Resources/config/config.xml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;awesome.feature_hierarchy.voter&quot;</span> <span class="na">class=</span><span class="s">&quot;%security.access.role_hierarchy_voter.class%&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;argument</span> <span class="na">type=</span><span class="s">&quot;service&quot;</span> <span class="na">id=</span><span class="s">&quot;security.role_hierarchy&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;argument&gt;</span>FEATURE_<span class="nt">&lt;/argument&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;security.voter&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/service&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This simple piece of xml will register a new voter based on the actual
+role hierarchy. The difference is that this voter will be specialised
+with the <code>FEATURE_</code> prefixed roles.</p>
+
+<p>Now, we need to specify in our user class how the roles will be
+distributed:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="c1">// You can implement your own logic there, be inventive.</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">getRoles</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isAdmin</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ROLE_ADMIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FEATURE_ALPHA&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isBetaTester</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ROLE_ADMIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FEATURE_BETA&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ROLE_USER&#39;</span><span class="p">,</span> <span class="s1">&#39;FEATURE_PROD&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>From now on, the user class will be able to tell wich roles he has, and
+the Security context will be able to vote on them. The only thing left
+to do is to &ldquo;secure&rdquo; parts of your application.</p>
+
+<p>In your templates:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>
+</span><span class='line'>{% if app.security.isGranted(&#39;FEATURE_SUPER_SECRET&#39;)) %}
+</span><span class='line'>    {# bla bla bla #}
+</span><span class='line'>{% endif %}
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>or in your controllers:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;security.context&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">isGranted</span><span class="p">(</span><span class="s1">&#39;FEATURE_SUPER_SECRET&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// do stuff</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>or your routes thanks to the built-in firewall:</p>
+
+<figure class='code'><figcaption><span>app/config/security.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">security</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">access_control</span><span class="p-Indicator">:</span>
+</span><span class='line'>        <span class="p-Indicator">-</span>
+</span><span class='line'>            <span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">^/my/route/to/my/feature.*$</span>
+</span><span class='line'>            <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">FEATURE_SUPER_SECRET</span><span class="p-Indicator">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here we are! You enabled feature flags in your project with a few lines
+of PHP and 5 lines of XML. Have fun!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Back from SfDay 2011 Cologne]]></title>
+    <link href="http://marc.weistroff.net/2011/10/24/back-from-symfony-day-2011-cologne/"/>
+    <updated>2011-10-24T00:00:00+02:00</updated>
+    <id>http://marc.weistroff.net/2011/10/24/back-from-symfony-day-2011-cologne</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m now back to my daily work at SensioLabs after some days spent at
+Cologne, mostly for the Symfony Day 2011. It was truly great to be
+there. I had the chance to put faces on twitter nicknames and to talk in
+front of the crowd. I was a bit nervous and wasn&rsquo;t as relaxed as I would
+liked to be. I will try to work on my english pronunciation for the next
+times.</p>
+
+<p>Many thanks to the SensioLabs Deutschland &amp; Interlution team, it was
+really a nice moment.</p>
+
+<p>Oh, and here are the slides of my talk.</p>
+
+<script src="http://speakerdeck.com/embed/4ea1465e1db551005100f779.js"></script>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[I assure you, it's open]]></title>
+    <link href="http://marc.weistroff.net/2011/10/03/i-assure-you-it-s-open/"/>
+    <updated>2011-10-03T00:00:00+02:00</updated>
+    <id>http://marc.weistroff.net/2011/10/03/i-assure-you-it-s-open</id>
+    <content type="html"><![CDATA[<p><img src="http://marc.weistroff.net/images/clerks.jpg" alt="I assure you, we're open" /></p>
+
+<p>Kids. Backuping your data is great. But assure you that your backups
+also contain your database. I&rsquo;ve lost all the posts of this blogs and
+much more. Nothing to say that I was really pissed off.</p>
+
+<p>I wanted to recreate this blog from scratch but got distract by other
+things. After a few months of procrastinating and slapping myself for
+not having a place to write, I found a great theme based on twitter
+bootstrap for wordpress and decided to give it a go. I&rsquo;m pretty happy
+with that.</p>
+
+<p>Let&rsquo;s hope I&rsquo;ll have the strength to write some interesting articles.</p>
+
+<p>Oh, I&rsquo;m currently concerned by twitter/facebook tracking on the web and
+won&rsquo;t add &ldquo;tweet this&rdquo; or &ldquo;like&rdquo; button but I will, for now, conserve
+the Google analytics tracking script and the feedburner thingy.</p>
+
+<p>P.S : The picture and the post&rsquo;s title come from the awesome
+<a href="http://www.imdb.com/title/tt0109445/">Clerks</a> and <a href="http://www.imdb.com/title/tt0424345/">Clerks
+2</a> movies. If you haven&rsquo;t seen
+them, it&rsquo;s never too late.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Semantic Coding?]]></title>
+    <link href="http://marc.weistroff.net/2010/06/09/an-introduction-to-semantic-coding/"/>
+    <updated>2010-06-09T00:00:00+02:00</updated>
+    <id>http://marc.weistroff.net/2010/06/09/an-introduction-to-semantic-coding</id>
+    <content type="html"><![CDATA[<p>Don’t worry. Semantic coding is not a new concept. Actually, you’re
+already doing it each time you code. At least, I hope for you and your
+teammates. The principle of semantic coding is simple and is a great
+part of what we all name “code readability”.</p>
+
+<p>Look at those 2 pieces of code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">A</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">A</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">B</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">-</span> <span class="nv">$b</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">C</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">/</span> <span class="nv">$b</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">D</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">*</span> <span class="nv">$b</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is not semantic code.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Calculator</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">Add</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">Substract</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">-</span> <span class="nv">$b</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">Divide</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">/</span> <span class="nv">$b</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">Multiply</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="nv">$a</span> <span class="o">*</span> <span class="nv">$b</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is semantic code.</p>
+
+<p>The difference between the two is that the second example class and
+method names carry a meaning. When reading the code, you don’t have to
+remember what the ‘Add’ method does because it’s clearly indicated
+within its name.</p>
+
+<p>In the first example, you have to remember which method name does what.
+In the second example, what the method does is its name. It’s a major
+difference.</p>
+
+<p>Speaking in cognitive terms. Writing code should be a high cognitive
+effort in order for the reading process to be a low cognitive effort.</p>
+
+<p>Don’t forget that code is often read 100x time more that it’s written!</p>
+
+<p>Now let’s apply semantic coding principle to exceptions!</p>
+
+<h2>Too much sfException is bad for the health</h2>
+
+<p>The use of sfException is a commong thing among all symfony projects’
+code I have the chance to read. While it’s harmless to use it from time
+to time, I think that using nearly only sfException in your code is like
+using \$a, \$b or \$c as unique variable name.</p>
+
+<h3>What is sfException?</h3>
+
+<p>As the sfException phpDoc says: > sfException is the base class for all
+symfony related exceptions and provides an additional method for
+printing up a detailed view of an exception.</p>
+
+<p>If you look at the code of
+<a href="http://trac.symfony-project.org/browser/branches/1.4/lib/exception/sfException.class.php">sfException</a>
+you’ll see that sfException has a bunch of tool to wrap an exception
+inside an sfException. That’s why when an exception of any kind is
+thrown in symfony, you see a nice html output.</p>
+
+<p>In a symfony application, every thrown exception that bubbles up is
+eventually catched in the
+<a href="http://trac.symfony-project.org/browser/branches/1.4/lib/controller/sfFrontWebController.class.php#L23">sfFrontWebController</a>
+class. Then this exception is wrapped into an sfException one and is
+displayed to the user.</p>
+
+<h4>The catching mechanism</h4>
+
+<figure class='code'><figcaption><span>sfFrontWebController.class.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">try</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// application running...</span>
+</span><span class='line'>    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">catch</span> <span class="p">(</span><span class="nx">sfException</span> <span class="nv">$e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">printStackTrace</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nx">sfException</span><span class="o">::</span><span class="na">createFromException</span><span class="p">(</span><span class="nv">$e</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">printStackTrace</span><span class="p">();</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>The wrapping mechanism</h4>
+
+<figure class='code'><figcaption><span>sfException.class.php</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">static</span> <span class="k">public</span> <span class="k">function</span> <span class="nf">createFromException</span><span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="nv">$exception</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">sfException</span><span class="p">(</span><span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;Wrapped %s: %s&#39;</span><span class="p">,</span> <span class="nb">get_class</span><span class="p">(</span><span class="nv">$e</span><span class="p">),</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()));</span>
+</span><span class='line'>    <span class="nv">$exception</span><span class="o">-&gt;</span><span class="na">setWrappedException</span><span class="p">(</span><span class="nv">$e</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">self</span><span class="o">::</span><span class="nv">$lastException</span> <span class="o">=</span> <span class="nv">$e</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="nv">$exception</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you can see, sfException was created mainly to display a nice debug
+trace and not to replace ALL exceptions! Don’t worry to throw other
+exception php provides, there’s always be a nice debug trace! ;)</p>
+
+<h3>PHP provides a lot of different exceptions</h3>
+
+<p>PHP provides 2 predefined exceptions known as <code>Exception</code> and
+<code>ErrorException</code>.</p>
+
+<p><code>Exception</code> is the base class from where all other exceptions inherit
+from. ErrorException can be used when you want that PHP throws exception
+instead of reporting errors. For more information about <code>ErrorException</code>,
+you can read the <a href="http://www.php.net/manual/en/class.errorexception.php">dedicated
+documentation</a>.</p>
+
+<p>The Standard PHP Library (SPL) provides <a href="fr.php.net/manual/en/spl.exceptions.php">13 more
+exceptions</a>. These exceptions
+are:
+<a href="http://php.net/BadFunctionCallException">BadFunctionCallException</a>,
+<a href="http://php.net/BadMethodCallException">BadMethodCallException</a>,
+<a href="http://php.net/DomainException">DomainException</a>,
+<a href="http://php.net/InvalidArgumentException">InvalidArgumentException</a>,
+<a href="http://php.net/LengthException">LengthException</a>,
+<a href="http://php.net/LogicException">LogicException</a>,
+<a href="http://php.net/OutOfBoundsException">OutOfBoundsException</a>,
+<a href="http://php.net/OutOfRangeException">OutOfRangeException</a>,
+<a href="http://php.net/OverflowException">OverflowException</a>,
+<a href="http://php.net/RangeException">RangeException</a>,
+<a href="http://php.net/RuntimeException">RuntimeException</a>,
+<a href="http://php.net/UnderflowException">UnexpectedValueException</a>.</p>
+
+<p>Each of these exception have a name that provide information on what the
+problem is which is pretty useful.</p>
+
+<p>Now let’s use those exceptions and see how they improve the global
+readability (and scanability) of your code.</p>
+
+<h3>Semantic exceptions</h3>
+
+<p>Let’s read those two pieces of code.</p>
+
+<p>This one with the uncool <code>sfException</code> everywhere:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Container</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">protected</span>
+</span><span class='line'>        <span class="nv">$maxItemCount</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>        <span class="nv">$container</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">addItem</span><span class="p">(</span><span class="nv">$item</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">maxItemCount</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$item</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">else</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="k">throw</span> <span class="k">new</span> <span class="nx">sfException</span><span class="p">(</span><span class="s1">&#39;Cryptic long message saying container is full&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">sliceItem</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="p">))</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="k">throw</span> <span class="k">new</span> <span class="nx">sfException</span><span class="p">(</span><span class="s1">&#39;Cryptic long message saying container is empty&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">array_slice</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And the cool one with semantic exceptions:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Container</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">protected</span>
+</span><span class='line'>        <span class="nv">$maxItemCount</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>        <span class="nv">$container</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">addItem</span><span class="p">(</span><span class="nv">$item</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$container</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">maxItemCount</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="nv">$container</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$item</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="k">else</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="k">throw</span> <span class="k">new</span> <span class="nx">OverflowException</span><span class="p">(</span><span class="s1">&#39;Cryptic long message saying container is full&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">public</span> <span class="k">function</span> <span class="nf">sliceItem</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$container</span><span class="p">))</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>            <span class="k">throw</span> <span class="k">new</span> <span class="nx">UnderflowException</span><span class="p">(</span><span class="s1">&#39;Cryptic long message saying container is empty&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nb">array_slice</span><span class="p">(</span><span class="nv">$container</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In the second example, you don’t have to read the message to know what
+it’s all about. The name is sufficient. Furthermore, you’ll get more
+informations while scanning the code with correct exceptions name than
+with sfException everywhere.</p>
+
+<p>More significative code = More readable code = More scannable code =
+Happy developer = Rainbows in kittens’ eyes.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Keep cool, use vim]]></title>
+    <link href="http://marc.weistroff.net/2010/05/21/keep-cool-use-vim/"/>
+    <updated>2010-05-21T00:00:00+02:00</updated>
+    <id>http://marc.weistroff.net/2010/05/21/keep-cool-use-vim</id>
+    <content type="html"><![CDATA[<p>Fed up by using Eclipse (So slow) and Netbeans (always crashing), some
+folks at Sensio Labs told me to start using Vim. At first, I said: “Just
+the name makes me want to puke, but why not.”. A few weeks later, guess
+which tool I used to edit my code? Yes, Vim. No, I didn’t even puke!</p>
+
+<p>VIM does not stand for “VIM Is Magic” but it could. It’s lightweight and
+usable everywhere. Whether you’re editing code, writing a blogpost in
+markdown or configuring an apache vhost over an ssh connection, it’s a
+wonderful tool to do the job.</p>
+
+<p><a href="http://urban.homelinux.org/wp-content/vim_learning.jpg">The hard part with vim is the
+learning.</a> It
+will take you some time&hellip; But it worth it.</p>
+
+<p>The exquise beauty of vim is that it’s nearly entirely customizable. If
+you’re not satisfied with keyboards shortcut, change them! Do you want
+to have the key F10 do something when you type it, you can! I configured
+this key to remove spaces filled lines in my code with a simple regular
+expression.</p>
+
+<p>VIM is so customizable and extendable that with installing a few plugins
+and tools, you can transform it in a full featured blazing-fast IDE.</p>
+
+<p>The first thing you need to do is to install &ldquo;exuberant-ctags&rdquo;. Without
+it, vim cannot auto-complete from files you didn’t open or jump to
+another method in other files. Once your tags are generated, the
+method-hop won’t be as good as eclipse because it’s not contextual, but
+it’s pretty acurate and it’s DAMN FAST!</p>
+
+<p>Then I use these plugin to give an “IDE” feel to my vim:</p>
+
+<ul>
+<li>NERDTree: A file explorer in your vim? yay!</li>
+<li>minibufexplorer: Switch between buffers easily!</li>
+<li>NERDCommenter: (Un)/Comment your code quickly</li>
+<li>snipMate: I can haz Textmate styles snippets!</li>
+<li>surround: Tired of navigating through your code to change double
+quote to simple quote? Surround do it with only a few strokes.</li>
+<li>php-doc: Speed up the phpDoc editing</li>
+<li>Align: Align your code in a few strokes!</li>
+<li>matchit: Navigate in control structures or html tags, only with the
+% key.</li>
+</ul>
+
+
+<p>Also, one of the more important point of using vim: It’s available
+anywhere.</p>
+
+<p>But be warned, once you’ll get used to the vim philosophy, it will be
+difficult to switch back to an other IDE. ;)</p>
+
+<p>If you’re curious and want to give a try without searching and
+installing the plugin by yourself, <a href="http://github.com/marcw/vim-config">clone my vim
+config</a>. But you’ll still have to
+read the docs ;)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[DYI Usability Testing]]></title>
+    <link href="http://marc.weistroff.net/2010/05/08/DIY-usability-testing/"/>
+    <updated>2010-05-08T00:00:00+02:00</updated>
+    <id>http://marc.weistroff.net/2010/05/08/DIY-usability-testing</id>
+    <content type="html"><![CDATA[<p>Step 1: Drink a few beers.</p>
+
+<p>Step 2: Drink some more.</p>
+
+<p>Step 3: Record your session.</p>
+
+<p>Easy, isn’t it?</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: code | Another brain on earth]]></title>
+  <link href="http://marc.weistroff.net/blog/categories/code/atom.xml" rel="self"/>
+  <link href="http://marc.weistroff.net/"/>
+  <updated>2013-05-29T13:26:33+02:00</updated>
+  <id>http://marc.weistroff.net/</id>
+  <author>
+    <name><![CDATA[Marc Weistroff]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Semantic Coding?]]></title>
+    <link href="http://marc.weistroff.net/2010/06/09/an-introduction-to-semantic-coding/"/>
+    <updated>2010-06-09T00:00:00+02:00</updated>
+    <id>http://marc.weistroff.net/2010/06/09/an-introduction-to-semantic-coding</id>
+    <content type="html"><![CDATA[<p>Don’t worry. Semantic coding is not a new concept. Actually, you’re
+already doing it each time you code. At least, I hope for you and your
+teammates. The principle of semantic coding is simple and is a great
+part of what we all name “code readability”.</p>
+
+<p>Look at those 2 pieces of code:</p>
+
+<p>``` php
+&lt;?php
+class A
+{</p>
+
+<pre><code>public function A($a, $b)
+{
+    return $a + $b;
+}
+
+public function B($a, $b)
+{
+    return $a - $b;
+}
+
+public function C($a, $b)
+{
+    return $a / $b;
+}
+
+public function D($a, $b)
+{
+    return $a * $b;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>This is not semantic code.</p>
+
+<p>``` php
+&lt;?php
+class Calculator
+{</p>
+
+<pre><code>public function Add($a, $b)
+{
+    return $a + $b;
+}
+
+public function Substract($a, $b)
+{
+    return $a - $b;
+}
+
+public function Divide($a, $b)
+{
+    return $a / $b;
+}
+
+public function Multiply($a, $b)
+{
+    return $a * $b;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>This is semantic code.</p>
+
+<p>The difference between the two is that the second example class and
+method names carry a meaning. When reading the code, you don’t have to
+remember what the ‘Add’ method does because it’s clearly indicated
+within its name.</p>
+
+<p>In the first example, you have to remember which method name does what.
+In the second example, what the method does is its name. It’s a major
+difference.</p>
+
+<p>Speaking in cognitive terms. Writing code should be a high cognitive
+effort in order for the reading process to be a low cognitive effort.</p>
+
+<p>Don’t forget that code is often read 100x time more that it’s written!</p>
+
+<p>Now let’s apply semantic coding principle to exceptions!</p>
+
+<h2>Too much sfException is bad for the health</h2>
+
+<p>The use of sfException is a commong thing among all symfony projects’
+code I have the chance to read. While it’s harmless to use it from time
+to time, I think that using nearly only sfException in your code is like
+using \$a, \$b or \$c as unique variable name.</p>
+
+<h3>What is sfException?</h3>
+
+<p>As the sfException phpDoc says: > sfException is the base class for all
+symfony related exceptions and provides an additional method for
+printing up a detailed view of an exception.</p>
+
+<p>If you look at the code of
+<a href="http://trac.symfony-project.org/browser/branches/1.4/lib/exception/sfException.class.php">sfException</a>
+you’ll see that sfException has a bunch of tool to wrap an exception
+inside an sfException. That’s why when an exception of any kind is
+thrown in symfony, you see a nice html output.</p>
+
+<p>In a symfony application, every thrown exception that bubbles up is
+eventually catched in the
+<a href="http://trac.symfony-project.org/browser/branches/1.4/lib/controller/sfFrontWebController.class.php#L23">sfFrontWebController</a>
+class. Then this exception is wrapped into an sfException one and is
+displayed to the user.</p>
+
+<h4>The catching mechanism</h4>
+
+<p>``` php sfFrontWebController.class.php
+&lt;?php
+try
+{</p>
+
+<pre><code>// application running...
+[...]
+</code></pre>
+
+<p>}
+catch (sfException $e)
+{</p>
+
+<pre><code>$e-&gt;printStackTrace();
+</code></pre>
+
+<p>}
+catch (Exception $e)
+{</p>
+
+<pre><code>sfException::createFromException($e)-&gt;printStackTrace();
+</code></pre>
+
+<p>}
+```</p>
+
+<h4>The wrapping mechanism</h4>
+
+<p>``` php sfException.class.php
+&lt;?php
+static public function createFromException(Exception $e)
+{</p>
+
+<pre><code>$exception = new sfException(sprintf('Wrapped %s: %s', get_class($e), $e-&gt;getMessage()));
+$exception-&gt;setWrappedException($e);
+self::$lastException = $e;
+
+return $exception;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>As you can see, sfException was created mainly to display a nice debug
+trace and not to replace ALL exceptions! Don’t worry to throw other
+exception php provides, there’s always be a nice debug trace! ;)</p>
+
+<h3>PHP provides a lot of different exceptions</h3>
+
+<p>PHP provides 2 predefined exceptions known as <code>Exception</code> and
+<code>ErrorException</code>.</p>
+
+<p><code>Exception</code> is the base class from where all other exceptions inherit
+from. ErrorException can be used when you want that PHP throws exception
+instead of reporting errors. For more information about <code>ErrorException</code>,
+you can read the <a href="http://www.php.net/manual/en/class.errorexception.php">dedicated
+documentation</a>.</p>
+
+<p>The Standard PHP Library (SPL) provides <a href="fr.php.net/manual/en/spl.exceptions.php">13 more
+exceptions</a>. These exceptions
+are:
+<a href="http://php.net/BadFunctionCallException">BadFunctionCallException</a>,
+<a href="http://php.net/BadMethodCallException">BadMethodCallException</a>,
+<a href="http://php.net/DomainException">DomainException</a>,
+<a href="http://php.net/InvalidArgumentException">InvalidArgumentException</a>,
+<a href="http://php.net/LengthException">LengthException</a>,
+<a href="http://php.net/LogicException">LogicException</a>,
+<a href="http://php.net/OutOfBoundsException">OutOfBoundsException</a>,
+<a href="http://php.net/OutOfRangeException">OutOfRangeException</a>,
+<a href="http://php.net/OverflowException">OverflowException</a>,
+<a href="http://php.net/RangeException">RangeException</a>,
+<a href="http://php.net/RuntimeException">RuntimeException</a>,
+<a href="http://php.net/UnderflowException">UnexpectedValueException</a>.</p>
+
+<p>Each of these exception have a name that provide information on what the
+problem is which is pretty useful.</p>
+
+<p>Now let’s use those exceptions and see how they improve the global
+readability (and scanability) of your code.</p>
+
+<h3>Semantic exceptions</h3>
+
+<p>Let’s read those two pieces of code.</p>
+
+<p>This one with the uncool <code>sfException</code> everywhere:</p>
+
+<p>``` php
+&lt;?php
+class Container
+{</p>
+
+<pre><code>protected
+    $maxItemCount = 2,
+    $container = array();
+
+public function addItem($item)
+{
+    if (count($this-&gt;container) &lt; $this-&gt;maxItemCount)
+    {
+        $this-&gt;container[] = $item;
+    }
+    else
+    {
+        throw new sfException('Cryptic long message saying container is full');
+    }
+}
+
+public function sliceItem()
+{
+    if (empty($this-&gt;container))
+    {
+        throw new sfException('Cryptic long message saying container is empty');
+    }
+
+    array_slice($this-&gt;container);
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>And the cool one with semantic exceptions:</p>
+
+<p>``` php
+&lt;?php
+class Container
+{</p>
+
+<pre><code>protected
+    $maxItemCount = 2,
+    $container = array();
+
+public function addItem($item)
+{
+    if (count($container) &lt; $this-&gt;maxItemCount)
+    {
+        $container[] = $item;
+    }
+    else
+    {
+        throw new OverflowException('Cryptic long message saying container is full');
+    }
+}
+
+public function sliceItem()
+{
+    if (empty($container))
+    {
+        throw new UnderflowException('Cryptic long message saying container is empty');
+    }
+
+    array_slice($container);
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>In the second example, you don’t have to read the message to know what
+it’s all about. The name is sufficient. Furthermore, you’ll get more
+informations while scanning the code with correct exceptions name than
+with sfException everywhere.</p>
+
+<p>More significative code = More readable code = More scannable code =
+Happy developer = Rainbows in kittens’ eyes.</p>
+]]></content>
+  </entry>
+  
+</feed>

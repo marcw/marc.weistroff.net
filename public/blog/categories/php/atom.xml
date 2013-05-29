@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: php | Another brain on earth]]></title>
+  <link href="http://marc.weistroff.net/blog/categories/php/atom.xml" rel="self"/>
+  <link href="http://marc.weistroff.net/"/>
+  <updated>2013-05-29T13:26:33+02:00</updated>
+  <id>http://marc.weistroff.net/</id>
+  <author>
+    <name><![CDATA[Marc Weistroff]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Solving segfault issues when using PHP5 and PostgreSQL]]></title>
+    <link href="http://marc.weistroff.net/2012/01/11/php5-postgresql-extension-causing-segfault/"/>
+    <updated>2012-01-11T00:00:00+01:00</updated>
+    <id>http://marc.weistroff.net/2012/01/11/php5-postgresql-extension-causing-segfault</id>
+    <content type="html"><![CDATA[<p>If your PHP5 installation always segfault when using PostgreSQL, you
+might have to change the loading order of your extensions. To be
+specific, you&rsquo;ll surely need to load the postgresql extension before the
+curl one.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Feature flags with Symfony2]]></title>
+    <link href="http://marc.weistroff.net/2012/01/09/simple-feature-flags-symfony2/"/>
+    <updated>2012-01-09T00:00:00+01:00</updated>
+    <id>http://marc.weistroff.net/2012/01/09/simple-feature-flags-symfony2</id>
+    <content type="html"><![CDATA[<p>Feature flags is a really common design in modern web applications and
+is heavily used by startups. It permits you to enable/disable features
+for some users or groups of users. It&rsquo;s really handy if you want to
+deploy to production a feature for testing purpose in order to have data
+on how your infrastructure reacts in a live environment.</p>
+
+<p>Let&rsquo;s have some fun and try to implements a simple feature flags design
+in your Symfony2 project without writing too much lines of PHP. Sure, we
+will use the as complex as powerful Security component for that. I won&rsquo;t
+dig deep inside the it, so you&rsquo;ll better be well versed about <a href="http://symfony.com/doc/current/book/security.html#roles">roles and
+roles hierarchy</a>.</p>
+
+<p>What we want for this project three types of features groups: &lsquo;alpha&rsquo;,
+&lsquo;beta&rsquo; and &lsquo;prod&rsquo;. I want the admin of my website to have access to the
+alpha unstable features, the beta testing group to the beta features and
+all the oser users to all the rest of my application.</p>
+
+<p>We can express this by using role hierarchy:</p>
+
+<p>``` yaml app/config/security.yml
+security:</p>
+
+<pre><code>role_hierarchy:
+    ROLE_ADMIN: ROLE_USER
+    ROLE_SUPER_ADMIN: ROLE_USER,ROLE_ADMIN,ROLE_ALLOWED_TO_SWITCH
+
+    FEATURE_ALPHA: FEATURE_BETA, FEATURE_SUPER_SECRET
+    FEATURE_BETA: FEATURE_PROD, FEATURE_FOOBAR
+    FEATURE_PROD: FEATURE_FOO, FEATURE_BAR
+</code></pre>
+
+<p>```</p>
+
+<p>Thus, anyone whom is granted <code>FEATURE_ALPHA</code> role will have access to all
+the features and the other groups won&rsquo;t have access to the &ldquo;lower&rdquo;
+features.</p>
+
+<p>This is a rad way of defining who have access to what, but currently,
+it&rsquo;s not supported by the SecurityBundle because only roles prefixed by
+<code>ROLE_</code> are supported by the current voter.</p>
+
+<p>So, we need to define a new voter that supports the newly created
+<code>FEATURE_*</code> roles. Is it complicated ? Hell no. Add this to your bundle
+xml configuration:</p>
+
+<p>``` xml Acme/Bundle/AwesomeBundle/Resources/config/config.xml
+<service id="awesome.feature_hierarchy.voter" class="%security.access.role_hierarchy_voter.class%"></p>
+
+<pre><code>&lt;argument type="service" id="security.role_hierarchy" /&gt;
+&lt;argument&gt;FEATURE_&lt;/argument&gt;
+&lt;tag name="security.voter" /&gt;
+</code></pre>
+
+<p></service>
+```</p>
+
+<p>This simple piece of xml will register a new voter based on the actual
+role hierarchy. The difference is that this voter will be specialised
+with the <code>FEATURE_</code> prefixed roles.</p>
+
+<p>Now, we need to specify in our user class how the roles will be
+distributed:</p>
+
+<p>``` php
+&lt;?php
+// You can implement your own logic there, be inventive.
+public function getRoles()
+{</p>
+
+<pre><code>if ($this-&gt;isAdmin) {
+    return array('ROLE_ADMIN', 'FEATURE_ALPHA');
+}
+
+if ($this-&gt;isBetaTester) {
+    return array('ROLE_ADMIN', 'FEATURE_BETA');
+}
+
+return array('ROLE_USER', 'FEATURE_PROD');
+</code></pre>
+
+<p>}
+```</p>
+
+<p>From now on, the user class will be able to tell wich roles he has, and
+the Security context will be able to vote on them. The only thing left
+to do is to &ldquo;secure&rdquo; parts of your application.</p>
+
+<p>In your templates:</p>
+
+<p>``` html
+
+{% if app.security.isGranted(&lsquo;FEATURE_SUPER_SECRET&rsquo;)) %}</p>
+
+<pre><code>{# bla bla bla #}
+</code></pre>
+
+<p>{% endif %}
+
+```</p>
+
+<p>or in your controllers:</p>
+
+<p>``` php
+&lt;?php
+public function indexAction()
+{</p>
+
+<pre><code>if ($this-&gt;get('security.context')-&gt;isGranted('FEATURE_SUPER_SECRET')) {
+    // do stuff
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>or your routes thanks to the built-in firewall:</p>
+
+<p>``` yaml app/config/security.yml
+security:</p>
+
+<pre><code>access_control:
+    -
+        path: ^/my/route/to/my/feature.*$
+        roles: [FEATURE_SUPER_SECRET]
+</code></pre>
+
+<p>```</p>
+
+<p>Here we are! You enabled feature flags in your project with a few lines
+of PHP and 5 lines of XML. Have fun!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Semantic Coding?]]></title>
+    <link href="http://marc.weistroff.net/2010/06/09/an-introduction-to-semantic-coding/"/>
+    <updated>2010-06-09T00:00:00+02:00</updated>
+    <id>http://marc.weistroff.net/2010/06/09/an-introduction-to-semantic-coding</id>
+    <content type="html"><![CDATA[<p>Don’t worry. Semantic coding is not a new concept. Actually, you’re
+already doing it each time you code. At least, I hope for you and your
+teammates. The principle of semantic coding is simple and is a great
+part of what we all name “code readability”.</p>
+
+<p>Look at those 2 pieces of code:</p>
+
+<p>``` php
+&lt;?php
+class A
+{</p>
+
+<pre><code>public function A($a, $b)
+{
+    return $a + $b;
+}
+
+public function B($a, $b)
+{
+    return $a - $b;
+}
+
+public function C($a, $b)
+{
+    return $a / $b;
+}
+
+public function D($a, $b)
+{
+    return $a * $b;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>This is not semantic code.</p>
+
+<p>``` php
+&lt;?php
+class Calculator
+{</p>
+
+<pre><code>public function Add($a, $b)
+{
+    return $a + $b;
+}
+
+public function Substract($a, $b)
+{
+    return $a - $b;
+}
+
+public function Divide($a, $b)
+{
+    return $a / $b;
+}
+
+public function Multiply($a, $b)
+{
+    return $a * $b;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>This is semantic code.</p>
+
+<p>The difference between the two is that the second example class and
+method names carry a meaning. When reading the code, you don’t have to
+remember what the ‘Add’ method does because it’s clearly indicated
+within its name.</p>
+
+<p>In the first example, you have to remember which method name does what.
+In the second example, what the method does is its name. It’s a major
+difference.</p>
+
+<p>Speaking in cognitive terms. Writing code should be a high cognitive
+effort in order for the reading process to be a low cognitive effort.</p>
+
+<p>Don’t forget that code is often read 100x time more that it’s written!</p>
+
+<p>Now let’s apply semantic coding principle to exceptions!</p>
+
+<h2>Too much sfException is bad for the health</h2>
+
+<p>The use of sfException is a commong thing among all symfony projects’
+code I have the chance to read. While it’s harmless to use it from time
+to time, I think that using nearly only sfException in your code is like
+using \$a, \$b or \$c as unique variable name.</p>
+
+<h3>What is sfException?</h3>
+
+<p>As the sfException phpDoc says: > sfException is the base class for all
+symfony related exceptions and provides an additional method for
+printing up a detailed view of an exception.</p>
+
+<p>If you look at the code of
+<a href="http://trac.symfony-project.org/browser/branches/1.4/lib/exception/sfException.class.php">sfException</a>
+you’ll see that sfException has a bunch of tool to wrap an exception
+inside an sfException. That’s why when an exception of any kind is
+thrown in symfony, you see a nice html output.</p>
+
+<p>In a symfony application, every thrown exception that bubbles up is
+eventually catched in the
+<a href="http://trac.symfony-project.org/browser/branches/1.4/lib/controller/sfFrontWebController.class.php#L23">sfFrontWebController</a>
+class. Then this exception is wrapped into an sfException one and is
+displayed to the user.</p>
+
+<h4>The catching mechanism</h4>
+
+<p>``` php sfFrontWebController.class.php
+&lt;?php
+try
+{</p>
+
+<pre><code>// application running...
+[...]
+</code></pre>
+
+<p>}
+catch (sfException $e)
+{</p>
+
+<pre><code>$e-&gt;printStackTrace();
+</code></pre>
+
+<p>}
+catch (Exception $e)
+{</p>
+
+<pre><code>sfException::createFromException($e)-&gt;printStackTrace();
+</code></pre>
+
+<p>}
+```</p>
+
+<h4>The wrapping mechanism</h4>
+
+<p>``` php sfException.class.php
+&lt;?php
+static public function createFromException(Exception $e)
+{</p>
+
+<pre><code>$exception = new sfException(sprintf('Wrapped %s: %s', get_class($e), $e-&gt;getMessage()));
+$exception-&gt;setWrappedException($e);
+self::$lastException = $e;
+
+return $exception;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>As you can see, sfException was created mainly to display a nice debug
+trace and not to replace ALL exceptions! Don’t worry to throw other
+exception php provides, there’s always be a nice debug trace! ;)</p>
+
+<h3>PHP provides a lot of different exceptions</h3>
+
+<p>PHP provides 2 predefined exceptions known as <code>Exception</code> and
+<code>ErrorException</code>.</p>
+
+<p><code>Exception</code> is the base class from where all other exceptions inherit
+from. ErrorException can be used when you want that PHP throws exception
+instead of reporting errors. For more information about <code>ErrorException</code>,
+you can read the <a href="http://www.php.net/manual/en/class.errorexception.php">dedicated
+documentation</a>.</p>
+
+<p>The Standard PHP Library (SPL) provides <a href="fr.php.net/manual/en/spl.exceptions.php">13 more
+exceptions</a>. These exceptions
+are:
+<a href="http://php.net/BadFunctionCallException">BadFunctionCallException</a>,
+<a href="http://php.net/BadMethodCallException">BadMethodCallException</a>,
+<a href="http://php.net/DomainException">DomainException</a>,
+<a href="http://php.net/InvalidArgumentException">InvalidArgumentException</a>,
+<a href="http://php.net/LengthException">LengthException</a>,
+<a href="http://php.net/LogicException">LogicException</a>,
+<a href="http://php.net/OutOfBoundsException">OutOfBoundsException</a>,
+<a href="http://php.net/OutOfRangeException">OutOfRangeException</a>,
+<a href="http://php.net/OverflowException">OverflowException</a>,
+<a href="http://php.net/RangeException">RangeException</a>,
+<a href="http://php.net/RuntimeException">RuntimeException</a>,
+<a href="http://php.net/UnderflowException">UnexpectedValueException</a>.</p>
+
+<p>Each of these exception have a name that provide information on what the
+problem is which is pretty useful.</p>
+
+<p>Now let’s use those exceptions and see how they improve the global
+readability (and scanability) of your code.</p>
+
+<h3>Semantic exceptions</h3>
+
+<p>Let’s read those two pieces of code.</p>
+
+<p>This one with the uncool <code>sfException</code> everywhere:</p>
+
+<p>``` php
+&lt;?php
+class Container
+{</p>
+
+<pre><code>protected
+    $maxItemCount = 2,
+    $container = array();
+
+public function addItem($item)
+{
+    if (count($this-&gt;container) &lt; $this-&gt;maxItemCount)
+    {
+        $this-&gt;container[] = $item;
+    }
+    else
+    {
+        throw new sfException('Cryptic long message saying container is full');
+    }
+}
+
+public function sliceItem()
+{
+    if (empty($this-&gt;container))
+    {
+        throw new sfException('Cryptic long message saying container is empty');
+    }
+
+    array_slice($this-&gt;container);
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>And the cool one with semantic exceptions:</p>
+
+<p>``` php
+&lt;?php
+class Container
+{</p>
+
+<pre><code>protected
+    $maxItemCount = 2,
+    $container = array();
+
+public function addItem($item)
+{
+    if (count($container) &lt; $this-&gt;maxItemCount)
+    {
+        $container[] = $item;
+    }
+    else
+    {
+        throw new OverflowException('Cryptic long message saying container is full');
+    }
+}
+
+public function sliceItem()
+{
+    if (empty($container))
+    {
+        throw new UnderflowException('Cryptic long message saying container is empty');
+    }
+
+    array_slice($container);
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>In the second example, you don’t have to read the message to know what
+it’s all about. The name is sufficient. Furthermore, you’ll get more
+informations while scanning the code with correct exceptions name than
+with sfException everywhere.</p>
+
+<p>More significative code = More readable code = More scannable code =
+Happy developer = Rainbows in kittens’ eyes.</p>
+]]></content>
+  </entry>
+  
+</feed>

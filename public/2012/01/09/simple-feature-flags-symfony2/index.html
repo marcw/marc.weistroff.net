@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Feature flags with Symfony2 - Another brain on earth</title>
+  <meta name="author" content="Marc Weistroff">
+
+  
+  <meta name="description" content="Feature flags is a really common design in modern web applications and
+is heavily used by startups. It permits you to enable/disable features
+for &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://marc.weistroff.net/2012/01/09/simple-feature-flags-symfony2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed.atom" rel="alternate" title="Another brain on earth" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed.atom" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:marc.weistroff.net" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Feature Flags With Symfony2</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-09T00:00:00+01:00" pubdate data-updated="true">Jan 9<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Feature flags is a really common design in modern web applications and
+is heavily used by startups. It permits you to enable/disable features
+for some users or groups of users. It&rsquo;s really handy if you want to
+deploy to production a feature for testing purpose in order to have data
+on how your infrastructure reacts in a live environment.</p>
+
+<p>Let&rsquo;s have some fun and try to implements a simple feature flags design
+in your Symfony2 project without writing too much lines of PHP. Sure, we
+will use the as complex as powerful Security component for that. I won&rsquo;t
+dig deep inside the it, so you&rsquo;ll better be well versed about <a href="http://symfony.com/doc/current/book/security.html#roles">roles and
+roles hierarchy</a>.</p>
+
+<p>What we want for this project three types of features groups: &lsquo;alpha&rsquo;,
+&lsquo;beta&rsquo; and &lsquo;prod&rsquo;. I want the admin of my website to have access to the
+alpha unstable features, the beta testing group to the beta features and
+all the oser users to all the rest of my application.</p>
+
+<p>We can express this by using role hierarchy:</p>
+
+<figure class='code'><figcaption><span>app/config/security.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">security</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">role_hierarchy</span><span class="p-Indicator">:</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">ROLE_ADMIN</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ROLE_USER</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">ROLE_SUPER_ADMIN</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ROLE_USER,ROLE_ADMIN,ROLE_ALLOWED_TO_SWITCH</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="l-Scalar-Plain">FEATURE_ALPHA</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">FEATURE_BETA, FEATURE_SUPER_SECRET</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">FEATURE_BETA</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">FEATURE_PROD, FEATURE_FOOBAR</span>
+</span><span class='line'>        <span class="l-Scalar-Plain">FEATURE_PROD</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">FEATURE_FOO, FEATURE_BAR</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thus, anyone whom is granted <code>FEATURE_ALPHA</code> role will have access to all
+the features and the other groups won&rsquo;t have access to the &ldquo;lower&rdquo;
+features.</p>
+
+<p>This is a rad way of defining who have access to what, but currently,
+it&rsquo;s not supported by the SecurityBundle because only roles prefixed by
+<code>ROLE_</code> are supported by the current voter.</p>
+
+<p>So, we need to define a new voter that supports the newly created
+<code>FEATURE_*</code> roles. Is it complicated ? Hell no. Add this to your bundle
+xml configuration:</p>
+
+<figure class='code'><figcaption><span>Acme/Bundle/AwesomeBundle/Resources/config/config.xml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;awesome.feature_hierarchy.voter&quot;</span> <span class="na">class=</span><span class="s">&quot;%security.access.role_hierarchy_voter.class%&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;argument</span> <span class="na">type=</span><span class="s">&quot;service&quot;</span> <span class="na">id=</span><span class="s">&quot;security.role_hierarchy&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;argument&gt;</span>FEATURE_<span class="nt">&lt;/argument&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;security.voter&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;/service&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This simple piece of xml will register a new voter based on the actual
+role hierarchy. The difference is that this voter will be specialised
+with the <code>FEATURE_</code> prefixed roles.</p>
+
+<p>Now, we need to specify in our user class how the roles will be
+distributed:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="c1">// You can implement your own logic there, be inventive.</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">getRoles</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isAdmin</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ROLE_ADMIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FEATURE_ALPHA&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isBetaTester</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ROLE_ADMIN&#39;</span><span class="p">,</span> <span class="s1">&#39;FEATURE_BETA&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ROLE_USER&#39;</span><span class="p">,</span> <span class="s1">&#39;FEATURE_PROD&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>From now on, the user class will be able to tell wich roles he has, and
+the Security context will be able to vote on them. The only thing left
+to do is to &ldquo;secure&rdquo; parts of your application.</p>
+
+<p>In your templates:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>
+</span><span class='line'>{% if app.security.isGranted(&#39;FEATURE_SUPER_SECRET&#39;)) %}
+</span><span class='line'>    {# bla bla bla #}
+</span><span class='line'>{% endif %}
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>or in your controllers:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;security.context&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">isGranted</span><span class="p">(</span><span class="s1">&#39;FEATURE_SUPER_SECRET&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// do stuff</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>or your routes thanks to the built-in firewall:</p>
+
+<figure class='code'><figcaption><span>app/config/security.yml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">security</span><span class="p-Indicator">:</span>
+</span><span class='line'>    <span class="l-Scalar-Plain">access_control</span><span class="p-Indicator">:</span>
+</span><span class='line'>        <span class="p-Indicator">-</span>
+</span><span class='line'>            <span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">^/my/route/to/my/feature.*$</span>
+</span><span class='line'>            <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">FEATURE_SUPER_SECRET</span><span class="p-Indicator">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here we are! You enabled feature flags in your project with a few lines
+of PHP and 5 lines of XML. Have fun!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Marc Weistroff</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-09T00:00:00+01:00" pubdate data-updated="true">Jan 9<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/features-flags/'>features flags</a>, <a class='category' href='/blog/categories/php/'>php</a>, <a class='category' href='/blog/categories/security/'>security</a>, <a class='category' href='/blog/categories/symfony2/'>symfony2</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2011/10/24/back-from-symfony-day-2011-cologne/" title="Previous Post: Back from SfDay 2011 Cologne">&laquo; Back from SfDay 2011 Cologne</a>
+      
+      
+        <a class="basic-alignment right" href="/2012/01/11/php5-postgresql-extension-causing-segfault/" title="Next Post: Solving segfault issues when using PHP5 and PostgreSQL">Solving segfault issues when using PHP5 and PostgreSQL &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/12/15/why-i-stopped-self-hosting-my-stuffs/">Why I Stopped self-hosting my mails, IM and website</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/11/23/Cross-Domain-AJAX-withCredentials/">Authenticated Cross-Domains AJAX Requests with CORS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/19/a-maintenance-page-served-by-varnish/">Serving a maintenance page with varnish</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/11/php5-postgresql-extension-causing-segfault/">Solving segfault issues when using PHP5 and PostgreSQL</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/01/09/simple-feature-flags-symfony2/">Feature flags with Symfony2</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/marcw">@marcw</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'marcw',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Marc Weistroff <br/>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>, customized with <a href="https://github.com/mjhea0/whiterspace">whiterspace</a>.</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

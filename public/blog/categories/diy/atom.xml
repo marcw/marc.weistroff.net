@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: DIY | Another brain on earth]]></title>
+  <link href="http://marc.weistroff.net/blog/categories/diy/atom.xml" rel="self"/>
+  <link href="http://marc.weistroff.net/"/>
+  <updated>2013-05-29T13:26:33+02:00</updated>
+  <id>http://marc.weistroff.net/</id>
+  <author>
+    <name><![CDATA[Marc Weistroff]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[DYI Usability Testing]]></title>
+    <link href="http://marc.weistroff.net/2010/05/08/DIY-usability-testing/"/>
+    <updated>2010-05-08T00:00:00+02:00</updated>
+    <id>http://marc.weistroff.net/2010/05/08/DIY-usability-testing</id>
+    <content type="html"><![CDATA[<p>Step 1: Drink a few beers.</p>
+
+<p>Step 2: Drink some more.</p>
+
+<p>Step 3: Record your session.</p>
+
+<p>Easy, isn’t it?</p>
+]]></content>
+  </entry>
+  
+</feed>
