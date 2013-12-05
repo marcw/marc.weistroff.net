@@ -1,4 +1,5 @@
 ---
+layout: post
 categories: [php, postgresql, linux]
 title: Solving segfault issues when using PHP5 and PostgreSQL
 ---
