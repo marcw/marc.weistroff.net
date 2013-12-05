@@ -15,4 +15,5 @@ group :development do
   gem 'liquid', '~> 2.3.0'
 end
 
+ruby '1.9.3'
 gem 'sinatra', '~> 1.4.2'
