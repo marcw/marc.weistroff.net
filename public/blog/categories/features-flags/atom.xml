@@ -4,7 +4,7 @@
   <title><![CDATA[Category: features flags | Another brain on earth]]></title>
   <link href="http://marc.weistroff.net/blog/categories/features-flags/atom.xml" rel="self"/>
   <link href="http://marc.weistroff.net/"/>
-  <updated>2013-05-29T13:49:56+02:00</updated>
+  <updated>2013-12-05T11:45:10+01:00</updated>
   <id>http://marc.weistroff.net/</id>
   <author>
     <name><![CDATA[Marc Weistroff]]></name>
@@ -18,22 +18,22 @@
     <link href="http://marc.weistroff.net/2012/01/09/simple-feature-flags-symfony2/"/>
     <updated>2012-01-09T00:00:00+01:00</updated>
     <id>http://marc.weistroff.net/2012/01/09/simple-feature-flags-symfony2</id>
-    <content type="html"><![CDATA[<p>Feature flags is a really common design in modern web applications and
-is heavily used by startups. It permits you to enable/disable features
-for some users or groups of users. It&rsquo;s really handy if you want to
-deploy to production a feature for testing purpose in order to have data
-on how your infrastructure reacts in a live environment.</p>
+    <content type="html"><![CDATA[<p>Feature flags is a really common design in modern web applications and is
+heavily used by startups. It permits you to enable/disable features for some
+users or groups of users. It&rsquo;s really handy if you want to deploy to production
+a feature for testing purpose in order to have data on how your infrastructure
+reacts in a live environment.</p>
 
-<p>Let&rsquo;s have some fun and try to implements a simple feature flags design
-in your Symfony2 project without writing too much lines of PHP. Sure, we
-will use the as complex as powerful Security component for that. I won&rsquo;t
-dig deep inside the it, so you&rsquo;ll better be well versed about <a href="http://symfony.com/doc/current/book/security.html#roles">roles and
-roles hierarchy</a>.</p>
+<p>Let&rsquo;s have some fun and try to implements a simple feature flags design in your
+Symfony2 project without writing too much lines of PHP. Sure, we will use the
+as complex as powerful Security component for that. I won&rsquo;t dig deep inside it,
+so you&rsquo;ll better be well versed about <a href="http://symfony.com/doc/current/book/security.html#roles">roles and roles
+hierarchy</a>.</p>
 
-<p>What we want for this project three types of features groups: &lsquo;alpha&rsquo;,
-&lsquo;beta&rsquo; and &lsquo;prod&rsquo;. I want the admin of my website to have access to the
-alpha unstable features, the beta testing group to the beta features and
-all the oser users to all the rest of my application.</p>
+<p>What we want for this project is three types of feature groups: &lsquo;alpha&rsquo;, &lsquo;beta&rsquo;
+and &lsquo;prod&rsquo;. I want the admins of my website to have access to the
+alpha/unstable features, the beta testing group to the beta features and all
+the oser users to all the rest of my application.</p>
 
 <p>We can express this by using role hierarchy:</p>
 
@@ -51,17 +51,15 @@ security:</p>
 
 <p>```</p>
 
-<p>Thus, anyone whom is granted <code>FEATURE_ALPHA</code> role will have access to all
-the features and the other groups won&rsquo;t have access to the &ldquo;lower&rdquo;
-features.</p>
+<p>Thus, anyone whom is granted the <code>FEATURE_ALPHA</code> role will have access to all
+the features and the other groups won&rsquo;t have access to the &ldquo;lower&rdquo; features.</p>
 
 <p>This is a rad way of defining who have access to what, but currently,
 it&rsquo;s not supported by the SecurityBundle because only roles prefixed by
 <code>ROLE_</code> are supported by the current voter.</p>
 
-<p>So, we need to define a new voter that supports the newly created
-<code>FEATURE_*</code> roles. Is it complicated ? Hell no. Add this to your bundle
-xml configuration:</p>
+<p>So, we need to define a new voter that supports the newly created <code>FEATURE_*</code>
+roles. Is it complicated? Hell no. Add this to your bundle xml configuration:</p>
 
 <p>``` xml Acme/Bundle/AwesomeBundle/Resources/config/config.xml
 <service id="awesome.feature_hierarchy.voter" class="%security.access.role_hierarchy_voter.class%"></p>
@@ -74,12 +72,11 @@ xml configuration:</p>
 <p></service>
 ```</p>
 
-<p>This simple piece of xml will register a new voter based on the actual
-role hierarchy. The difference is that this voter will be specialised
-with the <code>FEATURE_</code> prefixed roles.</p>
+<p>This simple piece of xml will register a new voter based on the actual role
+hierarchy. The difference is that this voter will be specialised in the
+<code>FEATURE_</code> prefixed roles.</p>
 
-<p>Now, we need to specify in our user class how the roles will be
-distributed:</p>
+<p>Now, we need to specify in our user class how the roles will be distributed:</p>
 
 <p>``` php
 &lt;?php
@@ -101,9 +98,9 @@ return array('ROLE_USER', 'FEATURE_PROD');
 <p>}
 ```</p>
 
-<p>From now on, the user class will be able to tell wich roles he has, and
-the Security context will be able to vote on them. The only thing left
-to do is to &ldquo;secure&rdquo; parts of your application.</p>
+<p>From now on, the user class will be able to tell wich roles he has, and the
+Security context will be able to vote on them. The only thing left to do is to
+&ldquo;secure&rdquo; parts of your application.</p>
 
 <p>In your templates:</p>
 
@@ -146,8 +143,8 @@ security:</p>
 
 <p>```</p>
 
-<p>Here we are! You enabled feature flags in your project with a few lines
-of PHP and 5 lines of XML. Have fun!</p>
+<p>Here we are! You enabled feature flags in your project with a few lines of PHP
+and 5 lines of XML. Have fun!</p>
 ]]></content>
   </entry>
   
