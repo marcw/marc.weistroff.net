@@ -4,7 +4,7 @@
   <title><![CDATA[Category: self-hosting | Another brain on earth]]></title>
   <link href="http://marc.weistroff.net/blog/categories/self-hosting/atom.xml" rel="self"/>
   <link href="http://marc.weistroff.net/"/>
-  <updated>2013-12-05T11:45:10+01:00</updated>
+  <updated>2013-12-05T12:21:19+01:00</updated>
   <id>http://marc.weistroff.net/</id>
   <author>
     <name><![CDATA[Marc Weistroff]]></name>
@@ -77,7 +77,7 @@ fastmail.fm because of the price, migrations processes and the Sieve support.</p
 <p>This website is now hosted by Amazon S3. The only cron job that I had is now
 run on heroku. My jabber service is being migrated to hosted.im.</p>
 
-<p>This will costs me around 50\$ a year and this is definitely worth the time I
+<p>This will costs me around 50$ a year and this is definitely worth the time I
 won&rsquo;t put in managing a server.</p>
 
 <p>Creating, installing and configuring software is easy. Achieving reliability is
