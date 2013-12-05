@@ -5,7 +5,7 @@ layout: page
 
 ## Who's this guy ?
 
-My name is Marc Weistroff and I'm a developer mostly using PHP and Go.
+My name is Marc Weistroff and I'm a developer using PHP/Symfony2 and Go.
 
 If by any chance you wanted to contact me, you can use one of these media:
 
@@ -15,6 +15,7 @@ If by any chance you wanted to contact me, you can use one of these media:
 I've got some online presences there:
 
 - [Github](https://github.com/marcw)
+- [LinkedIn](http://www.linkedin.com/profile/view?id=25413980)
 - [SensioLabs Connect](https://connect.sensiolabs.com/profile/futurecat)
 
 ## About this Website
