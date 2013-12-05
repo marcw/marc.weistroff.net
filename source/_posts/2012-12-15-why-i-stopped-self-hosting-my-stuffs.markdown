@@ -66,7 +66,7 @@ fastmail.fm because of the price, migrations processes and the Sieve support.
 This website is now hosted by Amazon S3. The only cron job that I had is now
 run on heroku. My jabber service is being migrated to hosted.im.
 
-This will costs me around 50\$ a year and this is definitely worth the time I
+This will costs me around 50$ a year and this is definitely worth the time I
 won't put in managing a server.
 
 Creating, installing and configuring software is easy. Achieving reliability is

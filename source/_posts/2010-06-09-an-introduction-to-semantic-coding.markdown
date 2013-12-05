@@ -88,7 +88,7 @@ Now let’s apply semantic coding principle to exceptions!
 The use of sfException is a commong thing among all symfony projects’
 code I have the chance to read. While it’s harmless to use it from time
 to time, I think that using nearly only sfException in your code is like
-using \$a, \$b or \$c as unique variable name.
+using $a, $b or $c as unique variable name.
 
 ### What is sfException?
 
