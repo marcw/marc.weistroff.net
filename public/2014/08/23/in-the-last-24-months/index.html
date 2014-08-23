@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Why I Stopped self-hosting my mails, IM and website - Another brain on earth</title>
+  <title>In the last 24 months - Another brain on earth</title>
   <meta name="author" content="Marc Weistroff">
 
   
-  <meta name="description" content="A year ago, I started an experiment. I wanted to quit gmail and gtalk services
-and prove me that I could host my emails and my IM myself. It went &hellip;">
+  <meta name="description" content="The last time I wrote something here was in 2012. What happened since then?
+It&rsquo;s been quite a ride actually. I lived in 3 different cities on &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@ and prove me that I could host my emails and my IM myself. It went &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://marc.weistroff.net/2012/12/15/why-i-stopped-self-hosting-my-stuffs">
+  <link rel="canonical" href="http://marc.weistroff.net/2014/08/23/in-the-last-24-months">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/feed.atom" rel="alternate" title="Another brain on earth" type="application/atom+xml">
@@ -66,7 +66,7 @@ and prove me that I could host my emails and my IM myself. It went &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Why I Stopped Self-hosting My Mails, IM and Website</h1>
+      <h1 class="entry-title">In the Last 24 Months</h1>
     
     
       <p class="meta">
@@ -82,77 +82,84 @@ and prove me that I could host my emails and my IM myself. It went &hellip;">
   
 
 
-<time datetime="2012-12-15T00:00:00+01:00" pubdate data-updated="true">Dec 15<span>th</span>, 2012</time>
+<time datetime="2014-08-23T00:00:00+02:00" pubdate data-updated="true">Aug 23<span>rd</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>A year ago, I started an experiment. I wanted to quit gmail and gtalk services
-and prove me that I could host my emails and my IM myself.  It went quite well
-but I decided to stop and subscribed to <a href="http://fastmail.fm">fastmail.fm</a> and
-to <a href="http://hosted.im">hosted.im</a>.</p>
+<div class="entry-content"><p>The last time I wrote something here was in 2012. What happened since then?
+It&rsquo;s been quite a ride actually. I lived in 3 different cities on two
+continents and had some realizations on the way I want to work and the
+importance it had on my life.</p>
 
-<h2>Installation</h2>
+<p>If you (still) follow me on twitter, you might have seen some changes. I&rsquo;m
+tweeting more and more in French and less and less about technologies. It
+didn&rsquo;t <a href="https://twitter.com/clochix/status/491868477658267648">went unnoticed to
+@clochix</a> and he asked
+me what I was doing and if there was a chance that I could wrote about that
+somewhere.</p>
 
-<p>A year ago, I spent some days installing a fully functionnal mail/web/jabber
-server. Hopefully, I had some <a href="http://flurdy.com/docs/postfix/">good tutorials</a>
-about setting up a mail server. On the jabber side, it was quite easy even if
-sometime, my WTF-o-meter level was really high. I blame my totally absent
-knowledge of erlang and mnesia here.</p>
+<p>In the last 24 months, I left Paris and lived in Montreal, Berlin and now
+Amsterdam. I met a whole bunch of people, made new friends along the way and
+basically hadn&rsquo;t too much to worry about because as I often say to people I
+meet &ldquo;when you&rsquo;re a developer, you can basically work from anywhere&rdquo;. The
+freedom you get by doing that has its obvious drawbacks, but the upsides are
+really fun.</p>
 
-<p>The easiest part was to set-up varnish and nginx on the server.  This is
-because I use these technologies every day. I still think that serving static
-files with a reverse proxy could be much more easier and quicker to setup.</p>
+<p>In the last 24 months, my views on work changed as well. As I was reading on
+autonomy and independence, I realized that being an employee was unsatisfying
+to me. It has its good sides but it was mostly frustrating in the end. I
+decided to become a freelancer. Who doesn&rsquo;t need some php/symfony2/golang
+expertise in this world right now? Of course, there&rsquo;s more to that: I wanted to
+create something from my hands and my brain. This is something incredibly hard
+to do when you&rsquo;re in an office for 5 days a week and that you also happen to
+like to enjoy your evenings and your weekends. Freelancing is giving me the
+possibility to balance my workload between my clients and my projects. With
+freelancing, I can confront my classic gen-x/gen-y developer bullshit to the
+real world. And I can&rsquo;t really tell you how good it is. In times where offices
+are transformed into playgrounds and that your company is paying for your
+breakfasts and your friday booze, trying to accomplish something by yourself
+can be seen as mad. Why would you refuse all these privileges? I don&rsquo;t really
+know, but I just had to the feeling that I should do it.</p>
 
-<p>Backuping is easy and cheap, thanks to Amazon S3. I did not suffer any crash
-and did not have to restore my data. I think I would have cried if I had to do
-that because of the time needed to set-up the server again.  The pain would
-have been bearable thanks to the EBS (if it doesn&rsquo;t fail).</p>
+<p>In the last 24 months, I must admit I lost interest in the IT industry. I
+could states a lot of reasons for that but it would raise endless debates
+because none of us would be right or wrong. The fact is that I can get bored
+quickly when things look and act the same. This industry has bored me. I&rsquo;ll get
+more involved again when the monoculture is less strong.</p>
 
-<p>My final set-up used these technologies: Amazon EC2, Amazon S3, Amazon
-CloudFront, Amazon Elastic Block Storage, Postfix, Dovecot, Sieve, Varnish,
-Postgrey, Spamassassin, Nginx and Ejabberd.</p>
+<p>I tried to build (alone) different products but somehow always failed
+developing them past a certain point. This is something utterly frustrating.
+Luckily during the Symfony Live 2013 in Berlin, I had the chance to have a few
+conversations with <a href="https://twitter.com/dustinwhittle">Dustin Whittle</a>, <a href="https://twitter.com/fabpot">Fabien
+Potencier</a> and <a href="https://twitter.com/francoisz">Francois
+Zaninotto</a> who gave me really good advices:
+&ldquo;Don&rsquo;t create a business alone&rdquo;, &ldquo;It&rsquo;s harder than you think, but rewarding&rdquo;,
+&ldquo;Think of the future of your product and how it will evolve&rdquo;, and &ldquo;expose your
+projects to like-minded people&rdquo;.</p>
 
-<h2>Running it</h2>
-
-<p>Here is what I learned:</p>
+<p>Now the funny thing in life is that if you give room for surprises to happen,
+they might actually do. At the beginning of the year, a conversation with my
+good friend <a href="https://twitter.com/FloreMusic">Flore</a> led to something like that
+(jokes, usual stupidity and facebook stickers removed for clarity).</p>
 
 <ul>
-<li><p>SMTP servers obey Murphy&rsquo;s Law. If you have an important mail to send, it
-will fail. Fallbacking to gmail happened too many time.</p></li>
-<li><p>ejabberd is stable. In a year of operation, it failed once and restarting
-it made did the trick. The <a href="http://www.process-one.net/en/">guys behind
-ejabberd</a> did a really great job.</p></li>
-<li><p>Spam was virtually absent from my mail. Spamassasin and postgrey worked
-well.</p></li>
-<li><p><a href="http://en.wikipedia.org/wiki/Sieve_%28mail_filtering_language%29">Sieve</a>
-is great. I mean really really GREAT. Filtering mail in gmail is a pain.</p></li>
-<li><p>Mail clients all suck. Sparrow was an exception.</p></li>
-<li><p>I&rsquo;m not nerdy enough to use <a href="http://www.mutt.org/">Mutt</a>.</p></li>
-<li><p>I should have used a configuration management system like Chef, Puppet or
-CFEngine to create the server. It would have doubled/tripled the time
-required to configure it properly, but it would have been an asset if I
-wanted to migrate my services to another host, which I considered at some
-point.</p></li>
+<li> Her: &ldquo;I think I want to start a record label, but it&rsquo;s tough&rdquo;</li>
+<li> Me: &ldquo;I never told you that but I have this idea in my mind since quite a while now.&rdquo;</li>
+<li> Her: &ldquo;Well it would be fun to do that together. We should think about that maybe&hellip;&rdquo;</li>
+<li> Me: &ldquo;Yeah, let&rsquo;s think about it&rdquo;</li>
 </ul>
 
 
-<h2>Now</h2>
-
-<p>Yesterday, and after too many problem with my SMTP server, I decided to end
-this experiment and started looking for a reliable mail provider. I chose
-fastmail.fm because of the price, migrations processes and the Sieve support.</p>
-
-<p>This website is now hosted by Amazon S3. The only cron job that I had is now
-run on heroku. My jabber service is being migrated to hosted.im.</p>
-
-<p>This will costs me around 50$ a year and this is definitely worth the time I
-won&rsquo;t put in managing a server.</p>
-
-<p>Creating, installing and configuring software is easy. Achieving reliability is
-hard.</p>
+<p>A few weeks later, it was on. We were creating a <a href="http://polaarsounds.com">record
+label</a>. This is a new adventure and even if I&rsquo;m
+clearly out of my comfort zone, I enjoy it more and more. Music is my passion
+and I&rsquo;m glad I can see tech not as an end, but as a mean. I often asked myself
+who would create a time-consuming small business in the worst industry to do
+business at this time? The only answer I got is &ldquo;Maybe the same guy who don&rsquo;t
+like his office to look like a playground.&rdquo;</p>
 </div>
 
 
@@ -175,12 +182,12 @@ hard.</p>
   
 
 
-<time datetime="2012-12-15T00:00:00+01:00" pubdate data-updated="true">Dec 15<span>th</span>, 2012</time>
+<time datetime="2014-08-23T00:00:00+02:00" pubdate data-updated="true">Aug 23<span>rd</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/self-hosting/'>self-hosting</a>
+    <a class='category' href='/blog/categories/update/'>update</a>
   
 </span>
 
@@ -196,10 +203,8 @@ hard.</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/2012/11/23/Cross-Domain-AJAX-withCredentials/" title="Previous Post: Authenticated Cross-Domains AJAX Requests with CORS">&laquo; Authenticated Cross-Domains AJAX Requests with CORS</a>
+        <a class="basic-alignment left" href="/2012/12/15/why-i-stopped-self-hosting-my-stuffs/" title="Previous Post: Why I Stopped self-hosting my mails, IM and website">&laquo; Why I Stopped self-hosting my mails, IM and website</a>
       
-      
-        <a class="basic-alignment right" href="/2014/08/23/in-the-last-24-months/" title="Next Post: In the last 24 months">In the last 24 months &raquo;</a>
       
     </p>
   </footer>
