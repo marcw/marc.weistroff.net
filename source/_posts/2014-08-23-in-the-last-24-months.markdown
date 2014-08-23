@@ -30,14 +30,14 @@ decided to become a freelancer. Who doesn't need some php/symfony2/golang
 expertise in this world right now? Of course, there's more to that: I wanted to
 create something from my hands and my brain. This is something incredibly hard
 to do when you're in an office for 5 days a week and that you also happen to
-like to enjoy your evenings and your weekends. Freelancing gives me the
-possibility to balance my workload between my clients and my projects. With
-freelancing, I can confront my classic gen-x/gen-y developer bullshit to the
-real world. And I can't really tell you how good it is. In times where offices
-are transformed into playgrounds and that your company is paying for your
-breakfasts and your friday booze, trying to accomplish something by yourself
-can be seen as mad. Why would you refuse all these privileges? I don't really
-know, but I just had to the feeling that I should do it.
+enjoy your evenings and your weekends. Freelancing gives me the possibility to
+balance my workload between my clients and my projects. With freelancing, I can
+confront my classic gen-x/gen-y developer bullshit to the real world. And I
+can't really tell you how good it is. In times where offices are transformed
+into playgrounds and that your company is paying for your breakfasts and your
+friday booze, trying to accomplish something by yourself can be seen as mad.
+Why would you refuse all these privileges? I don't really know, but I just had
+to the feeling that I should do it.
 
 In the last 24 months, I must admit I lost interest in the IT industry. I
 could state a lot of reasons for that but it would raise endless debates
