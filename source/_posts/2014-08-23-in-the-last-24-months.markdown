@@ -30,7 +30,7 @@ decided to become a freelancer. Who doesn't need some php/symfony2/golang
 expertise in this world right now? Of course, there's more to that: I wanted to
 create something from my hands and my brain. This is something incredibly hard
 to do when you're in an office for 5 days a week and that you also happen to
-like to enjoy your evenings and your weekends. Freelancing is giving me the
+like to enjoy your evenings and your weekends. Freelancing gives me the
 possibility to balance my workload between my clients and my projects. With
 freelancing, I can confront my classic gen-x/gen-y developer bullshit to the
 real world. And I can't really tell you how good it is. In times where offices
@@ -40,7 +40,7 @@ can be seen as mad. Why would you refuse all these privileges? I don't really
 know, but I just had to the feeling that I should do it.
 
 In the last 24 months, I must admit I lost interest in the IT industry. I
-could states a lot of reasons for that but it would raise endless debates
+could state a lot of reasons for that but it would raise endless debates
 because none of us would be right or wrong. The fact is that I can get bored
 quickly when things look and act the same. This industry has bored me. I'll get
 more involved again when the monoculture is less strong.
@@ -70,6 +70,6 @@ label](http://polaarsounds.com). This is a new adventure and even if I'm
 clearly out of my comfort zone, I enjoy it more and more. Music is my passion
 and I'm glad I can see tech not as an end, but as a mean. I often asked myself
 who would create a time-consuming small business in the worst industry to do
-business at this time? The only answer I got is "Maybe the same guy who don't
+business at this time? The only answer I got is "Maybe the same guy who doesn't
 like his office to look like a playground."
 
