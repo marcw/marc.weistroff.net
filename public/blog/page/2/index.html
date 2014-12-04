@@ -9,8 +9,9 @@
   <meta name="author" content="Marc Weistroff">
 
   
-  <meta name="description" content="Step 1: Drink a few beers. Step 2: Drink some more. Step 3: Record your session. Easy, isn’t it?
-">
+  <meta name="description" content="Fed up by using Eclipse (So slow) and Netbeans (always crashing), some
+folks at Sensio Labs told me to start using Vim. At first, I said: “Just
+the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +70,96 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/2010/05/21/keep-cool-use-vim/">Keep Cool, Use Vim</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-21T00:00:00+02:00" pubdate data-updated="true">May 21<span>st</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Fed up by using Eclipse (So slow) and Netbeans (always crashing), some
+folks at Sensio Labs told me to start using Vim. At first, I said: “Just
+the name makes me want to puke, but why not.”. A few weeks later, guess
+which tool I used to edit my code? Yes, Vim. No, I didn’t even puke!</p>
+
+<p>VIM does not stand for “VIM Is Magic” but it could. It’s lightweight and
+usable everywhere. Whether you’re editing code, writing a blogpost in
+markdown or configuring an apache vhost over an ssh connection, it’s a
+wonderful tool to do the job.</p>
+
+<p><a href="http://urban.homelinux.org/wp-content/vim_learning.jpg">The hard part with vim is the
+learning.</a> It
+will take you some time&hellip; But it worth it.</p>
+
+<p>The exquise beauty of vim is that it’s nearly entirely customizable. If
+you’re not satisfied with keyboards shortcut, change them! Do you want
+to have the key F10 do something when you type it, you can! I configured
+this key to remove spaces filled lines in my code with a simple regular
+expression.</p>
+
+<p>VIM is so customizable and extendable that with installing a few plugins
+and tools, you can transform it in a full featured blazing-fast IDE.</p>
+
+<p>The first thing you need to do is to install &ldquo;exuberant-ctags&rdquo;. Without
+it, vim cannot auto-complete from files you didn’t open or jump to
+another method in other files. Once your tags are generated, the
+method-hop won’t be as good as eclipse because it’s not contextual, but
+it’s pretty acurate and it’s DAMN FAST!</p>
+
+<p>Then I use these plugin to give an “IDE” feel to my vim:</p>
+
+<ul>
+<li>NERDTree: A file explorer in your vim? yay!</li>
+<li>minibufexplorer: Switch between buffers easily!</li>
+<li>NERDCommenter: (Un)/Comment your code quickly</li>
+<li>snipMate: I can haz Textmate styles snippets!</li>
+<li>surround: Tired of navigating through your code to change double
+quote to simple quote? Surround do it with only a few strokes.</li>
+<li>php-doc: Speed up the phpDoc editing</li>
+<li>Align: Align your code in a few strokes!</li>
+<li>matchit: Navigate in control structures or html tags, only with the
+% key.</li>
+</ul>
+
+
+<p>Also, one of the more important point of using vim: It’s available
+anywhere.</p>
+
+<p>But be warned, once you’ll get used to the vim philosophy, it will be
+difficult to switch back to an other IDE. ;)</p>
+
+<p>If you’re curious and want to give a try without searching and
+installing the plugin by yourself, <a href="http://github.com/marcw/vim-config">clone my vim
+config</a>. But you’ll still have to
+read the docs ;)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/2010/05/08/DIY-usability-testing/">DYI Usability Testing</a></h1>
     
     
@@ -121,6 +212,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/12/04/inspirations/">2014&#8217;s inspirations</a>
+      </li>
+    
+      <li class="post">
         <a href="/2014/08/23/in-the-last-24-months/">In the last 24 months</a>
       </li>
     
@@ -134,10 +229,6 @@
     
       <li class="post">
         <a href="/2012/01/19/a-maintenance-page-served-by-varnish/">Serving a maintenance page with varnish</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2012/01/11/php5-postgresql-extension-causing-segfault/">Solving segfault issues when using PHP5 and PostgreSQL</a>
       </li>
     
   </ul>
