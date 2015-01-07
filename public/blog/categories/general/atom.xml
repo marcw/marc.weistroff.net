@@ -4,7 +4,7 @@
   <title><![CDATA[Category: general | Another brain on earth]]></title>
   <link href="http://marc.weistroff.net/blog/categories/general/atom.xml" rel="self"/>
   <link href="http://marc.weistroff.net/"/>
-  <updated>2014-12-05T00:18:00+01:00</updated>
+  <updated>2015-01-07T17:19:24+01:00</updated>
   <id>http://marc.weistroff.net/</id>
   <author>
     <name><![CDATA[Marc Weistroff]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Speechless]]></title>
+    <link href="http://marc.weistroff.net/2015/01/07/"/>
+    <updated>2015-01-07T00:00:00+01:00</updated>
+    <id>http://marc.weistroff.net/2015/01/</id>
+    <content type="html"><![CDATA[<p><img width="100%" height="300px" src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs="></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[I assure you, it's open]]></title>
