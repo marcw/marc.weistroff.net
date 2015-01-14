@@ -1,25 +1,26 @@
 ---
 categories: [inspirations]
-title: 2014, A retrospective in music
+title: 2014, my retrospective in music
 layout: post
 ---
 
-I started last year a fun experiment. I decided to collect some tracks that
-would have been important to me during the year and which would be linked to my
-story of the year. I quickly wanted to limit myself during this process in
-order to keep the most proeminent emotions and not to build a collection of 30
-tracks. It helped me retrace the year. It made me think about it.
+Last year, I started what I would like to become a personal tradition. I
+decided to create a playlist that would describe my prominent emotions of the
+year that just passed. The creative process would be a way for me to look back
+at the year, both emotionaly and musically. I was afraid though that it would
+be an endless process and that I would end up putting up an endless collection
+of tracks without any meaning. I needed some limitations.
 
 I always liked the length limitation of vinyls. Back in the days, album were
-also designed to have that limitation and you could really feel how it
+also designed with that limit in mind and you could really feel how it
 influenced the construction of the album. The original [LP
 record](http://en.wikipedia.org/wiki/LP_record) had a maximum playing time of
 nearly 45 minutes, or 22 minutes by side. I decided to take this restriction
-and add another one: Only 4 tracks by side. That gave me a framework and a
-constraint which enabled me to focus myself on the most important phases I went
-through during the year. I also try to focus on tracks I discovered during the
-year. It's not a hard limitation, but a soft one. Some tracks I only discovered
-during the year cannot express the feeling I want to express.
+and to add another one: Only 4 tracks by side.
+
+These constaints gave me a framework which enabled me to focus myself on the
+most important phases I went through during the year. I added a soft constraint
+as well: Tracks should be the one I listened to during this year.
 
 Without further ado, here is my 2014 retrospective.
 
@@ -30,13 +31,13 @@ Without further ado, here is my 2014 retrospective.
 Side 1:
 
 - Pachanga Boys - Black Naga (Hippie Dance)
-- Flore - Numen (POLAAR)
+- [Flore - Numen (POLAAR)](http://www.polaarsounds.com/releases/flore-ritual-part-1.html)
 - Suuns - Music won't save you (Secretly Canadian)
 - Kool & The Gang - Summer Madness (Polygram)
 
 Side 2:
 
-- Flore - Random (POLAAR)
+- [Flore - Random (POLAAR)](http://www.polaarsounds.com/releases/flore-ritual-part-1.html)
 - Parquet Courts - Ducking & Dodging (What's Your Rupture?)
 - Run The Jewels - Love Again (Akinyele Back) (feat. Gangsta Boo) (Mass Appeal)
 - The Beatles - Tomorrow Never Knows (Parlophone)
