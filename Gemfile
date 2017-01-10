@@ -1,19 +1,31 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
+ruby RUBY_VERSION
 
-group :development do
-  gem 'rake', '~> 0.9'
-  gem 'jekyll', '~> 0.12'
-  gem 'rdiscount', '~> 2.0.7'
-  gem 'pygments.rb', '~> 0.3.4'
-  gem 'RedCloth', '~> 4.2.9'
-  gem 'haml', '~> 3.1.7'
-  gem 'compass', '~> 0.12.2'
-  gem 'sass-globbing', '~> 1.0.0'
-  gem 'rubypants', '~> 0.2.0'
-  gem 'rb-fsevent', '~> 0.9'
-  gem 'stringex', '~> 1.4.0'
-  gem 'liquid', '~> 2.3.0'
+# Hello! This is where you manage which Jekyll version is used to run.
+# When you want to use a different version, change it below, save the
+# file and run `bundle install`. Run Jekyll with `bundle exec`, like so:
+#
+#     bundle exec jekyll serve
+#
+# This will help ensure the proper Jekyll version is running.
+# Happy Jekylling!
+gem "jekyll", "3.3.1"
+
+# This is the default theme for new Jekyll sites. You may change this to anything you like.
+gem "minima", "~> 2.0"
+gem "jekyll-theme-lanyon"
+
+gem "rmagick"
+gem "exifr"
+gem 'rack-contrib'
+gem 'puma'
+
+# If you want to use GitHub Pages, remove the "gem "jekyll"" above and
+# uncomment the line below. To upgrade, run `bundle update github-pages`.
+# gem "github-pages", group: :jekyll_plugins
+
+# If you have any plugins, put them here!
+group :jekyll_plugins do
+   gem "jekyll-feed", "~> 0.6"
+   gem "jekyll-paginate"
 end
-
-ruby '1.9.3'
-gem 'sinatra', '~> 1.4.2'

@@ -1,0 +1,25 @@
+ul.unstyled, ul.unstyled li {
+    list-style: none;
+    padding: 0;
+}
+
+ul.gallery {
+    text-align: center;
+}
+
+
+ul.list-inline li {
+    display: inline-block;
+}
+
+li.gallery-item {
+    margin-bottom: 6em;
+}
+
+li.gallery-item img {
+    margin: auto;
+}
+
+#mainmenu ul li a {
+    padding-left: 0;
+}
